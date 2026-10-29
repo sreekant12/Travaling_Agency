@@ -1,755 +1,650 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>TravelGo - Travel Booking</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background: #f4f7fb;
-            color: #222;
-        }
-
-        /* Navigation Bar */
-        header {
-            width: 100%;
-            padding: 20px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-
-        .logo span {
-            color: #173b72;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            margin-left: 25px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #ff6b35;
-        }
-
-        /* Hero Background */
-        .hero {
-            min-height: 570px;
-            padding: 75px 7%;
-            background:
-                linear-gradient(
-                    120deg,
-                    rgba(8, 30, 65, 0.93),
-                    rgba(15, 90, 130, 0.65)
-                ),
-                url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85");
-
-            background-size: cover;
-            background-position: center;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            max-width: 650px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 span {
-            color: #ffb347;
-        }
-
-        .hero p {
-            font-size: 18px;
-            line-height: 1.7;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-
-        .hero-btn {
-            display: inline-block;
-            width: fit-content;
-            background: #ff6b35;
-            color: white;
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .hero-btn:hover {
-            background: #e94e19;
-            transform: translateY(-3px);
-        }
-
-        /* Booking Section */
-        .booking-section {
-            padding: 50px 7%;
-            margin-top: -55px;
-            position: relative;
-        }
-
-        .booking-box {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-        }
-
-        .booking-box h2 {
-            color: #173b72;
-            margin-bottom: 25px;
-        }
-
-        .vehicle-options {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
-        }
-
-        .vehicle-option {
-            padding: 12px 22px;
-            border: 2px solid #e2e8f0;
-            border-radius: 9px;
-            cursor: pointer;
-            background: white;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .vehicle-option:hover,
-        .vehicle-option.active {
-            background: #173b72;
-            color: white;
-            border-color: #173b72;
-        }
-
-        /* Form Layout */
-        .booking-form {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 9px;
-            color: #444;
-        }
-
-        .input-group input,
-        .input-group select {
-            padding: 14px;
-            border: 1px solid #d6dce5;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-            width: 100%;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: #ff6b35;
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
-        }
-
-        .search-btn {
-            grid-column: 1 / -1;
-            padding: 16px;
-            background: #ff6b35;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .search-btn:hover {
-            background: #e94e19;
-        }
-
-        /* Vehicle Cards */
-        .vehicles-section {
-            padding: 50px 7% 70px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 34px;
-            color: #173b72;
-            margin-bottom: 12px;
-        }
-
-        .section-description {
-            text-align: center;
-            color: #666;
-            margin-bottom: 35px;
-        }
-
-        .vehicle-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .vehicle-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
-            transition: 0.3s;
-        }
-
-        .vehicle-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .vehicle-image {
-            height: 220px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 100px;
-        }
-
-        .bus-bg {
-            background: linear-gradient(135deg, #dbeafe, #93c5fd);
-        }
-
-        .mini-bg {
-            background: linear-gradient(135deg, #dcfce7, #86efac);
-        }
-
-        .car-bg {
-            background: linear-gradient(135deg, #ffedd5, #fdba74);
-        }
-
-        .vehicle-info {
-            padding: 25px;
-        }
-
-        .vehicle-info h3 {
-            color: #173b72;
-            font-size: 23px;
-            margin-bottom: 12px;
-        }
-
-        .vehicle-info p {
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 18px;
-        }
-
-        .vehicle-info button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            background: #173b72;
-            color: white;
-            border-radius: 7px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .vehicle-info button:hover {
-            background: #ff6b35;
-        }
-
-        /* Features */
-        .features {
-            padding: 55px 7%;
-            background: linear-gradient(135deg, #173b72, #0c7890);
-            color: white;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            text-align: center;
-        }
-
-        .feature h3 {
-            font-size: 22px;
-            margin: 12px 0;
-        }
-
-        .feature p {
-            color: #e0eaf5;
-            line-height: 1.6;
-        }
-
-        .feature-icon {
-            font-size: 42px;
-        }
-
-        /* Footer */
-        footer {
-            background: #101c30;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-            line-height: 1.8;
-        }
-
-        footer span {
-            color: #ffb347;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            header {
-                padding: 20px 5%;
-            }
-
-            nav a {
-                margin-left: 12px;
-            }
-
-            .hero {
-                padding: 60px 5%;
-            }
-
-            .booking-section,
-            .vehicles-section {
-                padding-left: 5%;
-                padding-right: 5%;
-            }
-
-            .booking-form {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .vehicle-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                gap: 18px;
-            }
-
-            nav {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-            }
-
-            nav a {
-                margin: 0;
-                font-size: 14px;
-            }
-
-            .hero {
-                min-height: 470px;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .booking-form,
-            .vehicle-cards,
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .booking-box {
-                padding: 20px;
-            }
-
-            .vehicle-options {
-                gap: 10px;
-            }
-
-            .vehicle-option {
-                padding: 10px 14px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelGo | Smart Travel Booking</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #00c2a8;
+    --dark: #092b3b;
+    --light: #f4fbff;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-image: url("/static/images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* NAVIGATION */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 7%;
+    background: #082c3c;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 18px #001c2a55;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-btn {
+    background: var(--primary);
+    color: #062b35 !important;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* HERO */
+.hero {
+    min-height: 370px;
+    padding: 70px 8%;
+    color: white;
+    display: flex;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(3,25,39,.92),
+      rgba(3,25,39,.40)),
+      url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 700px;
+    animation: appear 1s ease;
+}
+
+.eyebrow {
+    color: #65f2d5;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.1;
+    margin: 18px 0;
+}
+
+.hero h1 span {
+    color: #55ecd0;
+}
+
+.hero p {
+    line-height: 1.8;
+    color: #e1edf2;
+    max-width: 570px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 27px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    border-radius: 9px;
+    padding: 13px 21px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #062c35;
+}
+
+.btn-outline {
+    border: 1px solid #ffffffaa;
+    color: white;
+    background: transparent;
+}
+
+/* MAIN BOOKING AREA: 75% */
+.booking-section {
+    padding: 55px 7%;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.section-heading .tag {
+    color: #009d89;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    font-size: clamp(27px, 4vw, 38px);
+    margin: 10px 0;
+    color: var(--dark);
+}
+
+.section-heading p {
+    color: #6c8290;
+    font-size: 14px;
+}
+
+/* THREE EQUAL BOOKING COLUMNS */
+.booking-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.travel-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px #123c5010;
+    border: 1px solid #e4eef1;
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.travel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px #123c5020;
+}
+
+.card-image {
+    height: 205px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s;
+}
+
+.travel-card:hover .card-image img {
+    transform: scale(1.07);
+}
+
+.vehicle-label {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    padding: 8px 12px;
+    border-radius: 7px;
+    background: #082c3ce8;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 23px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-body h3 {
+    font-size: 23px;
+    color: var(--dark);
+}
+
+.card-description {
+    color: #70828d;
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 9px 0 18px;
+}
+
+.feature-list {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.feature-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #edf2f4;
+    font-size: 13px;
+    color: #415b68;
+}
+
+.feature-list li::before {
+    content: "✓";
+    color: #00a990;
+    font-weight: bold;
+    margin-right: 9px;
+}
+
+.booking-form {
+    margin-top: auto;
+}
+
+.booking-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #395563;
+    margin: 13px 0 7px;
+}
+
+.booking-form input,
+.booking-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dce7eb;
+    border-radius: 8px;
+    background: #fbfdfe;
+    outline: none;
+    font-size: 13px;
+    color: #284553;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #00c2a81a;
+}
+
+.book-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #082f40;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.book-btn:hover {
+    background: #00a990;
+    color: #062b35;
+}
+
+.note {
+    color: #7a8b94;
+    font-size: 11px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* DESTINATIONS */
+.destinations {
+    padding: 50px 7%;
+    background: #eaf5f6;
+}
+
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-top: 27px;
+}
+
+.destination {
+    position: relative;
+    height: 190px;
+    border-radius: 14px;
+    overflow: hidden;
+    color: white;
+    display: flex;
+    align-items: end;
+    padding: 18px;
+    background-size: cover;
+    background-position: center;
+    transition: .3s;
+}
+
+.destination:hover {
+    transform: translateY(-5px);
+}
+
+.destination::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent, #001c30d9);
+}
+
+.destination div {
+    position: relative;
+}
+
+.destination h3 {
+    font-size: 19px;
+}
+
+.destination p {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* CUSTOMER SUPPORT: 25% */
+.support-section {
+    padding: 65px 7%;
+    background: #082c3c;
+    color: white;
+}
+
+.support-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.support-heading h2 {
+    font-size: clamp(27px, 4vw, 36px);
+    margin: 10px 0;
+}
+
+.support-heading p {
+    color: #c4d7df;
+    font-size: 14px;
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.support-card {
+    padding: 25px;
+    border: 1px solid #ffffff20;
+    background: #ffffff09;
+    border-radius: 14px;
+}
+
+.support-icon {
+    font-size: 29px;
+    margin-bottom: 15px;
+}
+
+.support-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.support-card p {
+    color: #c2d6df;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.support-card a {
+    display: inline-block;
+    color: #5cebd0;
+    margin-top: 15px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+    background: #041e2b;
+    color: #a9c0ca;
+    padding: 24px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+footer a {
+    color: #5cebd0;
+    text-decoration: none;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1000px) {
+    .booking-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .destination-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .navbar {
+        padding: 16px 5%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-links {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 55px 6%;
+    }
+
+    .booking-section,
+    .destinations,
+    .support-section {
+        padding: 42px 5%;
+    }
+
+    .booking-grid,
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .destination-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card-image {
+        height: 220px;
+    }
+}
+
+@media (max-width: 390px) {
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <header>
-        <div class="logo">Travel<span>Go</span> </div>
-    </header>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Travel<span>Go.</span></div>
+    <div class="nav-links">
+       
+    </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>Explore The World With <span>TravelGo</span></h1>
+<!-- HERO SECTION -->
 
-        <p>
-            Your journey, your choice! Book buses, mini buses,
-            and comfortable cars for family trips, tours,
-            business travel, and weekend adventures.
-        </p>
 
-        <a href="#booking" class="hero-btn">Book Your Journey →</a>
-    </section>
+<!-- 75% MAIN BOOKING SECTION -->
+<section class="booking-section" id="booking">
 
-    <!-- Booking Form -->
-    <section class="booking-section" id="booking">
-        <div class="booking-box">
+    <div class="section-heading">
+        <div class="tag">Choose your ride</div>
+        <h2>Where will your journey take you?</h2>
+        <p>Choose a vehicle that fits your journey and travel plans.</p>
+    </div>
 
-            <h2>🚘 Book Your Travel</h2>
+    <div class="booking-grid">
 
-            <div class="vehicle-options">
-                <button class="vehicle-option active"
-                        type="button"
-                        data-vehicle="Bus"
-                        onclick="selectVehicle(this)">
-                    🚌 Bus
-                </button>
-
-                <button class="vehicle-option"
-                        type="button"
-                        data-vehicle="Mini Bus"
-                        onclick="selectVehicle(this)">
-                    🚐 Mini Bus
-                </button>
-
-                <button class="vehicle-option"
-                        type="button"
-                        data-vehicle="Car"
-                        onclick="selectVehicle(this)">
-                    🚗 Car
-                </button>
+        <!-- CAR BOOKING -->
+        <article class="travel-card">
+            <div class="card-image">
+                <img
+                    src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85"
+                    alt="Comfortable car for travel"
+                    loading="lazy">
+                <span class="vehicle-label">01 · PRIVATE TRAVEL</span>
             </div>
 
-            <form class="booking-form" id="travelForm">
+            <div class="card-body">
+                <h3>Car Booking</h3>
+                <p class="card-description">
+                    Enjoy flexible city rides, family trips, airport transfers,
+                    and comfortable outstation journeys.
+                </p>
 
-                <div class="input-group">
-                    <label for="from">From</label>
-                    <input
-                        type="text"
-                        id="from"
-                        placeholder="Enter starting location"
-                        required>
-                </div>
+                <ul class="feature-list">
+                    <li>Private and comfortable rides</li>
+                    <li>City and outstation trips</li>
+                    
+                </ul>
 
-                <div class="input-group">
-                    <label for="to">Destination</label>
-                    <input
-                        type="text"
-                        id="to"
-                        placeholder="Enter destination"
-                        required>
-                </div>
-
-                <div class="input-group">
-                    <label for="date">Travel Date</label>
-                    <input
-                        type="date"
-                        id="date"
-                        required>
-                </div>
-
-                <div class="input-group">
-                    <label for="passengers">Passengers</label>
-                    <select id="passengers" required>
-                        <option value="1">1 Passenger</option>
-                        <option value="2">2 Passengers</option>
-                        <option value="3">3 Passengers</option>
-                        <option value="4">4 Passengers</option>
-                        <option value="5">5 Passengers</option>
-                        <option value="10">10 Passengers</option>
-                        <option value="15">15 Passengers</option>
-                        <option value="20">20 Passengers</option>
-                        <option value="30">30 Passengers</option>
-                        <option value="40">40 Passengers</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="trip">Trip Type</label>
-                    <select id="trip" required>
-                        <option value="One Way">One Way</option>
-                        <option value="Round Trip">Round Trip</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="phone">Mobile Number</label>
-                    <input
-                        type="tel"
-                        id="phone"
-                        placeholder="Enter 10-digit mobile number"
-                        pattern="[6-9][0-9]{9}"
-                        maxlength="10"
-                        required>
-                </div>
-
-                <button type="submit" class="search-btn">
-                    🔍 Search Available Vehicles
-                </button>
-
-            </form>
-        </div>
-    </section>
-
-    <!-- Vehicles Section -->
-    <section class="vehicles-section" id="vehicles">
-
-        <h2 class="section-title">Choose Your Vehicle</h2>
-
-        <p class="section-description">
-            Find the right vehicle for your next adventure.
-        </p>
-
-        <div class="vehicle-cards">
-
-            <!-- Bus -->
-            <div class="vehicle-card">
-                <div class="vehicle-image bus-bg">🚌</div>
-
-                <div class="vehicle-info">
-                    <h3>Bus Booking</h3>
-
-                    <p>
-                        Comfortable travel for large groups,
-                        family tours, pilgrimages, and long journeys.
-                    </p>
-
-                    <button onclick="bookVehicle('Bus')">
-                        Book a Bus
+               <form>
+                    <button class="book-btn" type="submit">
+                        Choose a Car →
                     </button>
-                </div>
+                    <p class="note">Choose your route and travel date.</p>
+                </form>
+            </div>
+        </article>
+
+        <!-- MINI BUS / TEMPO TRAVELLER -->
+        <article class="travel-card">
+            <div class="card-image">
+                <img
+                    src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=85"
+                    alt="Passenger travel vehicle"
+                    loading="lazy">
+                <span class="vehicle-label">02 · GROUP ADVENTURES</span>
             </div>
 
-            <!-- Mini Bus -->
-            <div class="vehicle-card">
-                <div class="vehicle-image mini-bg">🚐</div>
+            <div class="card-body">
+                <h3>Mini Bus</h3>
+                <p class="card-description">
+                    Book a Tempo Traveller for family holidays, group tours,
+                    weddings, and weekend adventures.
+                </p>
 
-                <div class="vehicle-info">
-                    <h3>Mini Bus Booking</h3>
+                <ul class="feature-list">
+                    
+                    <li>Family and group travel</li>
+                    <li>Tourist and pilgrimage trips</li>
+                </ul>
 
-                    <p>
-                        Perfect for family trips, office outings,
-                        school tours, and small groups.
-                    </p>
+                <form>
 
-                    <button onclick="bookVehicle('Mini Bus')">
-                        Book a Mini Bus
+                    <button class="book-btn" type="submit">
+                        Choose a Mini Bus →
                     </button>
-                </div>
+                    <p class="note">Ideal for group travel and tours.</p>
+                </form>
+            </div>
+        </article>
+
+        <!-- REGULAR PASSENGER BUS -->
+        <article class="travel-card">
+            <div class="card-image">
+                <img
+                    src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=900&q=85"
+                    alt="Regular passenger bus"
+                    loading="lazy">
+                <span class="vehicle-label">03 · LONG-DISTANCE TRAVEL</span>
             </div>
 
-            <!-- Car -->
-            <div class="vehicle-card">
-                <div class="vehicle-image car-bg">🚗</div>
+            <div class="card-body">
+                <h3>Bus Booking</h3>
+                <p class="card-description">
+                    Plan intercity trips with regular passenger bus services
+                    for convenient long-distance travel.
+                </p>
 
-                <div class="vehicle-info">
-                    <h3>Car Booking</h3>
+                <ul class="feature-list">
+                    <li>Intercity travel routes</li>
+                    <li>Solo and family journeys</li>
+                    
+                </ul>
 
-                    <p>
-                        Enjoy private travel for city rides,
-                        airport transfers, and weekend getaways.
-                    </p>
+                <form>
 
-                    <button onclick="bookVehicle('Car')">
-                        Book a Car
+                    <button class="book-btn" type="submit">
+                        Choose a Bus →
                     </button>
-                </div>
+                    <p class="note">Search for your preferred bus route.</p>
+                </form>
             </div>
+        </article>
 
-        </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Features -->
-    <section class="features">
 
-        <div class="feature">
-            <div class="feature-icon">💰</div>
-            <h3>Affordable Travel</h3>
-            <p>Choose a vehicle that suits your budget and journey.</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">🛡️</div>
-            <h3>Comfortable Journey</h3>
-            <p>Plan your trip with comfort and convenience in mind.</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">📞</div>
-            <h3>Easy Booking</h3>
-            <p>Enter your trip details and submit your booking request.</p>
-        </div>
-
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <h3>Travel<span>Go</span> ✈</h3>
-
-        <p>Making every journey memorable.</p>
-
-        <p>Contact: Add your business mobile number here.</p>
-
-        <p>© 2026 TravelGo. All rights reserved.</p>
-    </footer>
-
-    <script>
-        let selectedVehicle = "Bus";
-
-        // Set the minimum travel date to today
-        const dateInput = document.getElementById("date");
-
-        const today = new Date();
-        const localToday = new Date(
-            today.getTime() - today.getTimezoneOffset() * 60000
-        ).toISOString().split("T")[0];
-
-        dateInput.min = localToday;
-        dateInput.value = localToday;
-
-        // Select a vehicle type
-        function selectVehicle(button) {
-            document.querySelectorAll(".vehicle-option").forEach(option => {
-                option.classList.remove("active");
-            });
-
-            button.classList.add("active");
-
-            selectedVehicle = button.dataset.vehicle;
-
-            // Adjust passenger options for the selected vehicle
-            const passengers = document.getElementById("passengers");
-
-            if (selectedVehicle === "Car") {
-                passengers.innerHTML = `
-                    <option value="1">1 Passenger</option>
-                    <option value="2">2 Passengers</option>
-                    <option value="3">3 Passengers</option>
-                    <option value="4">4 Passengers</option>
-                    <option value="5">5 Passengers</option>
-                `;
-            } else if (selectedVehicle === "Mini Bus") {
-                passengers.innerHTML = `
-                    <option value="6">6 Passengers</option>
-                    <option value="10">10 Passengers</option>
-                    <option value="15">15 Passengers</option>
-                    <option value="20">20 Passengers</option>
-                `;
-            } else {
-                passengers.innerHTML = `
-                    <option value="10">10 Passengers</option>
-                    <option value="20">20 Passengers</option>
-                    <option value="30">30 Passengers</option>
-                    <option value="40">40 Passengers</option>
-                `;
-            }
-        }
-
-        // Vehicle card buttons
-        function bookVehicle(vehicle) {
-            selectedVehicle = vehicle;
-
-            document.querySelectorAll(".vehicle-option").forEach(option => {
-                option.classList.toggle(
-                    "active",
-                    option.dataset.vehicle === vehicle
-                );
-            });
-
-            // Update passenger choices
-            const selectedButton = document.querySelector(
-                `.vehicle-option[data-vehicle="${vehicle}"]`
-            );
-
-            selectVehicle(selectedButton);
-
-            document.getElementById("booking").scrollIntoView({
-                behavior: "smooth"
-            });
-        }
-
-        // Submit booking form
-        document.getElementById("travelForm").addEventListener(
-            "submit",
-            function(event) {
-                event.preventDefault();
-
-                const from = document.getElementById("from").value.trim();
-                const to = document.getElementById("to").value.trim();
-                const date = dateInput.value;
-                const passengers = document.getElementById("passengers").value;
-                const trip = document.getElementById("trip").value;
-                const phone = document.getElementById("phone").value.trim();
-
-                if (from.toLowerCase() === to.toLowerCase()) {
-                    alert("Starting location and destination must be different.");
-                    return;
-                }
-
-                if (date < localToday) {
-                    alert("Please select today or a future travel date.");
-                    return;
-                }
-
-                const message =
-                    "TRAVEL BOOKING REQUEST\n\n" +
-                    "Vehicle: " + selectedVehicle + "\n" +
-                    "From: " + from + "\n" +
-                    "Destination: " + to + "\n" +
-                    "Travel Date: " + date + "\n" +
-                    "Passengers: " + passengers + "\n" +
-                    "Trip Type: " + trip + "\n" +
-                    "Mobile: " + phone + "\n\n" +
-                    "This is a demo request. No booking has been confirmed.";
-
-                alert(message);
-            }
-        );
-    </script>
 
 </body>
 </html>

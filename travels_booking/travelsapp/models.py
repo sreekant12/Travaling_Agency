@@ -1,3 +1,5 @@
 from django.db import models
+class Travel_Agency():
+    
 
-# Create your models here.
+    
