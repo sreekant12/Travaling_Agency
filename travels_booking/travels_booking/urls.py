@@ -19,5 +19,6 @@ from django.urls import path
 from travelsapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",views.html)
+    path("",views.home)
+    
 ]
