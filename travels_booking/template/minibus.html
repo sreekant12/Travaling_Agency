@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/minibus.css'%}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelGo | Mini Bus Booking</title>
+
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Travel<span>Go</span></div>
+    <div>Mini Bus Booking</div>
+</header>
+
+<section class="hero">
+    <h1>Choose Your Perfect Mini Bus</h1>
+    <p>Travel together, explore together, create memories together.</p>
+</section>
+
+<div class="container">
+
+    <!-- DATE SELECTION -->
+    <div class="date-box">
+        <h2>Journey Details</h2>
+
+        <div class="date-inputs">
+            <div>
+                <label>Pickup Date</label>
+                <input type="date" id="pickupDate">
+            </div>
+
+            <div>
+                <label>Drop-off Date</label>
+                <input type="date" id="dropDate">
+            </div>
+        </div>
+
+        <button class="continue-btn" onclick="showMiniBuses()">
+            Continue to Mini Buses
+        </button>
+    </div>
+
+    <!-- MINI BUS SELECTION -->
+    <section id="miniBusSection">
+
+        <div class="section-title">
+            <h2>Available Mini Buses</h2>
+            <p>Select the vehicle that suits your journey</p>
+            <p id="journeySummary"></p>
+        </div>
+
+        <div class="miniBus-grid">
+
+            <!-- MINI BUS 1 -->
+            <div class="miniBus-card">
+                <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e"
+                     alt="12 seater Tempo Traveller">
+
+                <div class="miniBus-details">
+                    <h3>Mini Bus 01 - Force Traveller</h3>
+                    <p class="bus-number">Registration: AP 03 XX 2001</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 12 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Medium Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Pushback Seats</div>
+                        <div class="spec">🎵 Music System</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectMiniBus('Force Traveller 12 Seater','AP 03 XX 2001')">
+                        Select Mini Bus
+                    </button>
+                </div>
+            </div>
+
+            <!-- MINI BUS 2 -->
+            <div class="miniBus-card">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957"
+                     alt="14 seater mini bus">
+
+                <div class="miniBus-details">
+                    <h3>Mini Bus 02 - Force Urbania</h3>
+                    <p class="bus-number">Registration: AP 03 XX 2002</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 14 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Large Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Recliner Seats</div>
+                        <div class="spec">🎵 Music System</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectMiniBus('Force Urbania 14 Seater','AP 03 XX 2002')">
+                        Select Mini Bus
+                    </button>
+                </div>
+            </div>
+
+            <!-- MINI BUS 3 -->
+            <div class="miniBus-card">
+                <img src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644"
+                     alt="17 seater tourist mini bus">
+
+                <div class="miniBus-details">
+                    <h3>Mini Bus 03 - Tourist Traveller</h3>
+                    <p class="bus-number">Registration: AP 03 XX 2003</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 17 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Large Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Pushback Seats</div>
+                        <div class="spec">🎵 Music System</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectMiniBus('Tourist Traveller 17 Seater','AP 03 XX 2003')">
+                        Select Mini Bus
+                    </button>
+                </div>
+            </div>
+
+            <!-- MINI BUS 4 -->
+            <div class="miniBus-card">
+                <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c"
+                     alt="20 seater mini bus">
+
+                <div class="miniBus-details">
+                    <h3>Mini Bus 04 - Eicher Mini Coach</h3>
+                    <p class="bus-number">Registration: AP 03 XX 2004</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 20 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Large Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Pushback Seats</div>
+                        <div class="spec">🎵 Entertainment</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectMiniBus('Eicher Mini Coach 20 Seater','AP 03 XX 2004')">
+                        Select Mini Bus
+                    </button>
+                </div>
+            </div>
+
+            <!-- MINI BUS 5 -->
+            <div class="miniBus-card">
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2"
+                     alt="Luxury mini bus">
+
+                <div class="miniBus-details">
+                    <h3>Mini Bus 05 - Luxury Traveller</h3>
+                    <p class="bus-number">Registration: AP 03 XX 2005</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 16 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Large Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Luxury Recliners</div>
+                        <div class="spec">🎵 Entertainment</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectMiniBus('Luxury Traveller 16 Seater','AP 03 XX 2005')">
+                        Select Mini Bus
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="selectedMessage"></div>
+
+    </section>
+</div>
+
+<footer>
+    © 2026 TravelGo | Your Journey, Our Responsibility
+</footer>
+
+<script>
+const pickup = document.getElementById("pickupDate");
+const drop = document.getElementById("dropDate");
+
+function getToday() {
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+pickup.min = getToday();
+drop.min = getToday();
+
+pickup.addEventListener("change", function() {
+    if (!pickup.value) return;
+
+    const nextDay = new Date(pickup.value + "T00:00:00");
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    const year = nextDay.getFullYear();
+    const month = String(nextDay.getMonth() + 1).padStart(2, "0");
+    const day = String(nextDay.getDate()).padStart(2, "0");
+
+    const minimumDrop = `${year}-${month}-${day}`;
+
+    drop.min = minimumDrop;
+
+    if (drop.value && drop.value < minimumDrop) {
+        drop.value = "";
+    }
+});
+
+function showMiniBuses() {
+
+    if (!pickup.value ) {
+        alert("Please select pickup dates.");
+        return;
+    }
+
+    if (pickup.value < getToday()) {
+        alert("Pickup date cannot be in the past.");
+        return;
+    }
+
+   
+
+    document.getElementById("journeySummary").textContent =
+        "Pickup: " + pickup.value +
+        " | Drop-off: " + drop.value;
+
+    document.getElementById("miniBusSection").style.display = "block";
+
+    document.getElementById("miniBusSection").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function selectMiniBus(name, number) {
+
+    const message = document.getElementById("selectedMessage");
+
+    message.style.display = "block";
+
+    message.innerHTML = `
+        <h3>Mini Bus Selected Successfully!</h3>
+        <p><strong>Vehicle:</strong> ${name}</p>
+        <p><strong>Registration:</strong> ${number}</p>
+        <p><strong>Pickup Date:</strong> ${pickup.value}</p>
+        <p><strong>Drop-off Date:</strong> ${drop.value}</p>
+        <p>Your mini bus selection is ready for the next booking step.</p>
+    `;
+
+    message.scrollIntoView({
+        behavior: "smooth"
+    });
+
+    
+}
+</script>
+
+</body>
+</html>

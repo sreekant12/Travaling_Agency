@@ -19,6 +19,11 @@ from django.urls import path
 from travelsapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",views.home)
+    path("",views.home),
+    path('car/', views.car, name='car'),
+    path('minibus/', views.minibus, name='minibus'),
+    path('bus/', views.bus, name='bus'),
     
+
 ]
+ 

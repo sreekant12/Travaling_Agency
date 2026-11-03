@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/bus.css'%}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TravelGo | Smart Bus Booking</title>
+
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+    <div class="logo">Travel<span>Go</span></div>
+    <p>Your Trusted Tourist Travels</p>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div>
+        <h1>Explore Your <span>Next Journey</span></h1>
+        <p>Travel Comfortably, Discover Beautiful Destinations</p>
+    </div>
+</section>
+
+<!-- DATE SELECTION -->
+
+<div class="booking-container" id="dateSection">
+
+    <div class="booking-header">
+        <h2>📅 Plan Your Journey</h2>
+        <p>Select your pickup and drop-off dates</p>
+    </div>
+
+    <div class="booking-content">
+
+        <div class="date-section">
+
+            <div class="date-card">
+
+                <label>📍 Pickup Date</label>
+
+                <input type="date" id="pickupDate">
+
+            </div>
+
+            <div class="date-card">
+
+                <label>🏁 Drop-off Date</label>
+
+                <input type="date" id="dropDate">
+
+            </div>
+
+        </div>
+
+        <button class="search-btn" onclick="searchJourney()">
+            Continue Your Journey →
+        </button>
+
+        <p id="dateMessage"></p>
+
+    </div>
+
+</div>
+
+
+<!-- BUS SELECTION SECTION -->
+
+<div class="container" id="busSection">
+
+    <div class="heading">
+
+        <h2>Our Tourist Bus Fleet</h2>
+
+        <p>
+            Select your preferred bus from our five available tourist buses
+        </p>
+
+    </div>
+
+    <div class="journey-summary" id="journeySummary"></div>
+
+    <div class="bus-grid">
+
+        <!-- BUS 1 -->
+
+        <div class="bus-card">
+
+            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e"
+            alt="Tourist Bus 1">
+
+            <div class="bus-info">
+
+                <div class="bus-title">
+                    <h3>Tourist Bus - 01</h3>
+                    <span class="available">Available</span>
+                </div>
+
+                <p class="bus-number">Bus No: AP 03 XX 1234</p>
+
+                <div class="details">
+                    <p>🚌 Model: BharatBenz</p>
+                    <p>💺 Seats: 40</p>
+                    <p>❄️ AC: Yes</p>
+                    <p>🪑 Seat: Pushback</p>
+                    <p>🧳 Luggage: Large</p>
+                    <p>📺 Entertainment: Yes</p>
+                </div>
+
+                <button class="select-btn"
+                onclick="selectBus('Tourist Bus 01','AP 03 XX 1234')">
+                    Select This Bus
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- BUS 2 -->
+
+        <div class="bus-card">
+
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957"
+            alt="Tourist Bus 2">
+
+            <div class="bus-info">
+
+                <div class="bus-title">
+                    <h3>Tourist Bus - 02</h3>
+                    <span class="available">Available</span>
+                </div>
+
+                <p class="bus-number">Bus No: AP 03 XX 2345</p>
+
+                <div class="details">
+                    <p>🚌 Model: Ashok Leyland</p>
+                    <p>💺 Seats: 35</p>
+                    <p>❄️ AC: Yes</p>
+                    <p>🪑 Seat: Recliner</p>
+                    <p>🧳 Luggage: Medium</p>
+                    <p>📺 Entertainment: Yes</p>
+                </div>
+
+                <button class="select-btn"
+                onclick="selectBus('Tourist Bus 02','AP 03 XX 2345')">
+                    Select This Bus
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- BUS 3 -->
+
+        <div class="bus-card">
+
+            <img src="https://images.unsplash.com/photo-1557223562-6c77ef16210f"
+            alt="Tourist Bus 3">
+
+            <div class="bus-info">
+
+                <div class="bus-title">
+                    <h3>Tourist Bus - 03</h3>
+                    <span class="available">Available</span>
+                </div>
+
+                <p class="bus-number">Bus No: AP 03 XX 3456</p>
+
+                <div class="details">
+                    <p>🚌 Model: Volvo Coach</p>
+                    <p>💺 Seats: 45</p>
+                    <p>❄️ AC: Yes</p>
+                    <p>🪑 Seat: Pushback</p>
+                    <p>🧳 Luggage: Large</p>
+                    <p>📺 Entertainment: Yes</p>
+                </div>
+
+                <button class="select-btn"
+                onclick="selectBus('Tourist Bus 03','AP 03 XX 3456')">
+                    Select This Bus
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- BUS 4 -->
+
+        <div class="bus-card">
+
+            <img src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4"
+            alt="Tourist Bus 4">
+
+            <div class="bus-info">
+
+                <div class="bus-title">
+                    <h3>Tourist Bus - 04</h3>
+                    <span class="available">Available</span>
+                </div>
+
+                <p class="bus-number">Bus No: AP 03 XX 4567</p>
+
+                <div class="details">
+                    <p>🚌 Model: Scania Coach</p>
+                    <p>💺 Seats: 40</p>
+                    <p>❄️ AC: Yes</p>
+                    <p>🪑 Seat: Recliner</p>
+                    <p>🧳 Luggage: Large</p>
+                    <p>📺 Entertainment: Yes</p>
+                </div>
+
+                <button class="select-btn"
+                onclick="selectBus('Tourist Bus 04','AP 03 XX 4567')">
+                    Select This Bus
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- BUS 5 -->
+
+        <div class="bus-card">
+
+            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e"
+            alt="Tourist Bus 5">
+
+            <div class="bus-info">
+
+                <div class="bus-title">
+                    <h3>Tourist Bus - 05</h3>
+                    <span class="available">Available</span>
+                </div>
+
+                <p class="bus-number">Bus No: AP 03 XX 5678</p>
+
+                <div class="details">
+                    <p>🚌 Model: Eicher Coach</p>
+                    <p>💺 Seats: 30</p>
+                    <p>❄️ AC: No</p>
+                    <p>🪑 Seat: Pushback</p>
+                    <p>🧳 Luggage: Medium</p>
+                    <p>📺 Entertainment: No</p>
+                </div>
+
+                <button class="select-btn"
+                onclick="selectBus('Tourist Bus 05','AP 03 XX 5678')">
+                    Select This Bus
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="busMessage"></div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+    <p>© 2026 TravelGo | Safe Journey, Happy Journey</p>
+</footer>
+
+
+<script>
+
+// TODAY'S DATE
+
+const today = new Date();
+
+const todayString =
+    today.getFullYear() + "-" +
+    String(today.getMonth()+1).padStart(2,"0") + "-" +
+    String(today.getDate()).padStart(2,"0");
+
+const pickup = document.getElementById("pickupDate");
+const drop = document.getElementById("dropDate");
+
+pickup.min = todayString;
+drop.min = todayString;
+
+
+// PICKUP DATE CHANGE
+
+pickup.addEventListener("change", function() {
+
+    if (!pickup.value) return;
+
+    let nextDate = new Date(pickup.value + "T00:00:00");
+
+    nextDate.setDate(nextDate.getDate()+1);
+
+    let minDropDate =
+        nextDate.getFullYear() + "-" +
+        String(nextDate.getMonth()+1).padStart(2,"0") + "-" +
+        String(nextDate.getDate()).padStart(2,"0");
+
+    drop.min = minDropDate;
+
+    if (drop.value && drop.value < minDropDate) {
+        drop.value = "";
+    }
+
+});
+
+
+// CONTINUE JOURNEY
+
+function searchJourney() {
+
+    const message = document.getElementById("dateMessage");
+
+    if (!pickup.value) {
+
+        message.style.color = "red";
+
+        message.innerHTML =
+        "Please select  pickup date .";
+
+        return;
+    }
+
+    if (pickup.value < todayString) {
+
+        message.style.color = "red";
+        message.innerHTML = "Pickup date cannot be in the past.";
+
+        return;
+    }
+
+   
+
+    // DISPLAY SELECTED DATES
+
+    document.getElementById("journeySummary").innerHTML =
+        "📍 Pickup: " + pickup.value +
+        " &nbsp; | &nbsp; 🏁 Drop-off: " + drop.value;
+
+    message.style.color = "green";
+    message.innerHTML = "Dates selected successfully!";
+
+    // SHOW BUS SECTION
+
+    document.getElementById("busSection").style.display = "block";
+
+    document.getElementById("busSection").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+// SELECT BUS
+
+function selectBus(name, number) {
+
+    const busMessage = document.getElementById("busMessage");
+
+    busMessage.innerHTML =
+        "You Selected: " + name + " | " + number;
+
+    // PASS DATA TO NEXT DJANGO PAGE
+
+    const params = new URLSearchParams({
+        pickup: pickup.value,
+        drop: drop.value,
+        bus: name,
+        number: number
+    });
+
+    // Uncomment when your Django URL is ready:
+
+    // window.location.href =
+    // "/booking-details/?" + params.toString();
+
+}
+
+</script>
+
+</body>
+</html>

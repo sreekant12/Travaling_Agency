@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/car.css'%}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelGo | Car Booking</title>
+
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Travel<span>Go</span></div>
+    <div>Car Booking</div>
+</header>
+
+<section class="hero">
+    <h1>Choose Your Perfect Car</h1>
+    <p>Comfortable journeys begin with the right vehicle.</p>
+</section>
+
+<div class="container">
+
+    <!-- DATE SELECTION -->
+    <div class="date-box">
+        <h2>Journey Details</h2>
+
+        <div class="date-inputs">
+            <div>
+                <label>Pickup Date</label>
+                <input type="date" id="pickupDate">
+            </div>
+
+            <div>
+                <label>Drop-off Date</label>
+                <input type="date" id="dropDate">
+            </div>
+        </div>
+
+        <button class="continue-btn" onclick="showCars()">
+            Continue to Cars
+        </button>
+    </div>
+
+    <!-- CAR SELECTION -->
+    <section id="carSection">
+
+        <div class="section-title">
+            <h2>Available Tourist Cars</h2>
+            <p>Select the car that suits your journey</p>
+            <p id="journeySummary"></p>
+        </div>
+
+        <div class="car-grid">
+
+            <!-- CAR 1 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf"
+                     alt="Toyota Innova Crysta">
+
+                <div class="car-details">
+                    <h3>Car 01 - Toyota Innova Crysta</h3>
+                    <p class="car-number">Registration: AP 03 XX 1001</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 7 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Large Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Comfortable Seats</div>
+                        <div class="spec">🚘 SUV</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectCar('Toyota Innova Crysta','AP 03 XX 1001')">
+                        Select Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAR 2 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d"
+                     alt="Sedan car">
+
+                <div class="car-details">
+                    <h3>Car 02 - Hyundai Verna</h3>
+                    <p class="car-number">Registration: AP 03 XX 1002</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 5 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Medium Luggage</div>
+                        <div class="spec">⚙️ Automatic</div>
+                        <div class="spec">💺 Premium Seats</div>
+                        <div class="spec">🚘 Sedan</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectCar('Hyundai Verna','AP 03 XX 1002')">
+                        Select Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAR 3 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b"
+                     alt="SUV car">
+
+                <div class="car-details">
+                    <h3>Car 03 - Mahindra XUV700</h3>
+                    <p class="car-number">Registration: AP 03 XX 1003</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 7 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Large Luggage</div>
+                        <div class="spec">⚙️ Automatic</div>
+                        <div class="spec">💺 Premium Seats</div>
+                        <div class="spec">🚘 SUV</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectCar('Mahindra XUV700','AP 03 XX 1003')">
+                        Select Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAR 4 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+                     alt="Luxury car">
+
+                <div class="car-details">
+                    <h3>Car 04 - Luxury Sedan</h3>
+                    <p class="car-number">Registration: AP 03 XX 1004</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 5 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Medium Luggage</div>
+                        <div class="spec">⚙️ Automatic</div>
+                        <div class="spec">💺 Luxury Seats</div>
+                        <div class="spec">🚘 Premium Sedan</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectCar('Luxury Sedan','AP 03 XX 1004')">
+                        Select Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAR 5 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2"
+                     alt="Maruti Ertiga">
+
+                <div class="car-details">
+                    <h3>Car 05 - Maruti Ertiga</h3>
+                    <p class="car-number">Registration: AP 03 XX 1005</p>
+
+                    <div class="specs">
+                        <div class="spec">👥 7 Seats</div>
+                        <div class="spec">❄️ AC Available</div>
+                        <div class="spec">🧳 Medium Luggage</div>
+                        <div class="spec">⚙️ Manual</div>
+                        <div class="spec">💺 Comfortable Seats</div>
+                        <div class="spec">🚘 MUV</div>
+                    </div>
+
+                    <button class="select-btn"
+                        onclick="selectCar('Maruti Ertiga','AP 03 XX 1005')">
+                        Select Car
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="selectedMessage"></div>
+
+    </section>
+</div>
+
+<footer>
+    © 2026 TravelGo | Your Journey, Our Responsibility
+</footer>
+
+<script>
+const pickup = document.getElementById("pickupDate");
+const drop = document.getElementById("dropDate");
+
+function getToday() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+pickup.min = getToday();
+drop.min = getToday();
+
+pickup.addEventListener("change", function() {
+    if (!pickup.value) return;
+
+    const nextDay = new Date(pickup.value + "T00:00:00");
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    const year = nextDay.getFullYear();
+    const month = String(nextDay.getMonth() + 1).padStart(2, "0");
+    const day = String(nextDay.getDate()).padStart(2, "0");
+
+    const minimumDrop = `${year}-${month}-${day}`;
+
+    drop.min = minimumDrop;
+
+    if (drop.value && drop.value < minimumDrop) {
+        drop.value = "";
+    }
+});
+
+function showCars() {
+    if (!pickup.value) {
+        alert("Please select pickup date.");
+        return;
+    }
+
+    if (pickup.value < getToday()) {
+        alert("Pickup date cannot be in the past.");
+        return;
+    }
+
+  
+
+    document.getElementById("journeySummary").innerHTML =
+        "Pickup: " + pickup.value + " | Drop-off: " + drop.value;
+
+    document.getElementById("carSection").style.display = "block";
+
+    document.getElementById("carSection").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function selectCar(name, number) {
+    const message = document.getElementById("selectedMessage");
+
+    message.style.display = "block";
+
+    message.innerHTML = `
+        <h3>Car Selected Successfully!</h3>
+        <p><strong>Car:</strong> ${name}</p>
+        <p><strong>Registration:</strong> ${number}</p>
+        <p><strong>Pickup Date:</strong> ${pickup.value}</p>
+        <p><strong>Drop-off Date:</strong> ${drop.value}</p>
+        <p>Your car selection is ready for the next booking step.</p>
+    `;
+
+    message.scrollIntoView({ behavior: "smooth" });
+
+
+}
+</script>
+
+</body>
+</html>

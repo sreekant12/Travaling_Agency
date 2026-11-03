@@ -73,12 +73,7 @@ body {
     color: white;
     display: flex;
     align-items: center;
-    background:
-      linear-gradient(90deg, rgba(3,25,39,.92),
-      rgba(3,25,39,.40)),
-      url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85");
-    background-size: cover;
-    background-position: center;
+    
 }
 
 .hero-content {
@@ -294,24 +289,26 @@ body {
 }
 
 .book-btn {
+    display: block;
     width: 100%;
-    margin-top: 20px;
-    padding: 14px;
-    border: none;
-    border-radius: 9px;
-    background: #082f40;
+    padding: 14px 20px;
+    background: #00a995;
     color: white;
-    font-size: 14px;
-    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: .25s;
+    transition: 0.3s ease;
 }
 
 .book-btn:hover {
-    background: #00a990;
-    color: #062b35;
+    background: #087f70;
+    color: white;
+    transform: translateY(-3px);
 }
-
 .note {
     color: #7a8b94;
     font-size: 11px;
@@ -430,18 +427,33 @@ body {
     font-weight: bold;
 }
 
-/* FOOTER */
-footer {
-    background: #041e2b;
-    color: #a9c0ca;
-    padding: 24px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    font-size: 12px;
+
+html, body {
+    min-height: 100%;
+    margin: 0;
 }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-section {
+    flex: 1;
+}
+
+footer {
+    width: 100%;
+    background: #082c3c;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: auto;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
 
 footer a {
     color: #5cebd0;

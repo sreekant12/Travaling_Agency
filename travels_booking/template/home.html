@@ -58,7 +58,8 @@
 
                <form>
                     <button class="book-btn" type="submit">
-                        Choose a Car →
+                        <a href="{% url 'car' %}" class="book-btn">Choose a Car →</a>
+                       
                     </button>
                     <p class="note">Choose your route and travel date.</p>
                 </form>
@@ -91,7 +92,8 @@
                 <form>
 
                     <button class="book-btn" type="submit">
-                        Choose a Mini Bus →
+                        <a href="{% url 'minibus' %}" class="book-btn">Choose a Mini Bus →</a>
+                        
                     </button>
                     <p class="note">Ideal for group travel and tours.</p>
                 </form>
@@ -124,7 +126,7 @@
                 <form>
 
                     <button class="book-btn" type="submit">
-                        Choose a Bus →
+                        <a href="{% url 'bus' %}" class="book-btn">Choose a Bus →</a>
                     </button>
                     <p class="note">Search for your preferred bus route.</p>
                 </form>
