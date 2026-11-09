@@ -7,7 +7,7 @@ class Employee(models.Model):
     phone=models.CharField(max_length=10,unique=True)
     adress=models.TextField()
     photo=models.ImageField(upload_to='employee_images')
-    role_choice=(("owner","owner"),("employee","employee"),("driver","driver"),("admin","admin"))
+    role_choice=(("employee","employee"),("driver","driver"))
     role=models.CharField(max_length=50,choices=role_choice)
     experience=models.CharField()
     def __str__(self): 
@@ -19,7 +19,6 @@ class Travel_bus(models.Model):
     secondary_driver=models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='secondary_driver')
     bus_number=models.CharField(max_length=15)
     bus_company=models.CharField(max_length=30)
-
     couch_choice=(('AC','AC'),('Non-AC','Non-AC'))
     couch_type=models.CharField(max_length=8,choices=couch_choice)
     seats=models.PositiveIntegerField()
@@ -33,25 +32,26 @@ class Travel_bus(models.Model):
     right_photo=models.ImageField(upload_to='bus_images')
     back_photo=models.ImageField(upload_to='bus_images')
     inner_photo=models.ImageField(upload_to='bus_images')
+    is_activate=models.BooleanField(default=True)
+
 
 class Travel_car(models.Model):
     Travels_id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     driver_name=models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True)
-    
     car_number=models.CharField(max_length=15)
     car_company=models.CharField(max_length=30)
     couch_choice=(('AC','AC'),('Non-AC','Non-AC'))
     couch_type=models.CharField(max_length=8,choices=couch_choice)
     seats=models.PositiveIntegerField()
-    seat_type=models.CharField(max_length=15,choices=(('normal','normal'),('Pushback','Pushback'),('Semi_Sleeper','Semi_Sleeper'),('Sleeper_Berth','Sleeper_Berth')))
+    seat_type=models.CharField(max_length=15,choices=(('normal','normal'),("Comfortable","Comfortable"),('Pushback','Pushback')))
     luggage_choice=(('small','small'),('medium','medium'),('large','large'))
     luggage=models.CharField(max_length=7,choices=luggage_choice)
-   
     front_photo=models.ImageField(upload_to='car_images')
     left_photo=models.ImageField(upload_to='car_images')
     right_photo=models.ImageField(upload_to='car_images')
     back_photo=models.ImageField(upload_to='car_images')
     inner_photo=models.ImageField(upload_to='car_images')
+    is_activate=models.BooleanField(default=True)
     
 
 class travel_minibus(models.Model):
@@ -72,4 +72,8 @@ class travel_minibus(models.Model):
     right_photo=models.ImageField(upload_to='bus_images')
     back_photo=models.ImageField(upload_to='bus_images')
     inner_photo=models.ImageField(upload_to='bus_images')
-    
+    is_activate=models.BooleanField(default=True)
+
+
+class Booking_history(models.Model):
+    pass

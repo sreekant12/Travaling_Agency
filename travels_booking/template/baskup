@@ -1,0 +1,22 @@
+<div class="container">
+
+    <!-- DATE SELECTION -->
+    <div class="date-box">
+        <h2>Journey Details</h2>
+
+        <div class="date-inputs">
+            <div>
+                <label>Pickup Date</label>
+                <input type="date" id="pickupDate">
+            </div>
+
+            <div>
+                <label>Drop-off Date</label>
+                <input type="date" id="dropDate">
+            </div>
+        </div>
+
+        <button class="continue-btn" onclick="showCars()">
+            Continue to Cars
+        </button>
+    </div>

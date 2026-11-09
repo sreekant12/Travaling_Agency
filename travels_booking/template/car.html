@@ -1,191 +1,548 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="{% static 'css/car.css'%}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>TravelGo | Car Booking</title>
 
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f3f7f8;
+    color: #183442;
+}
+
+/* HEADER */
+header {
+    background: #082c3c;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #00c2a8;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* HEADING */
+.heading {
+    text-align: center;
+    padding: 45px 15px 25px;
+}
+
+.heading h1 {
+    font-size: 34px;
+    color: #082c3c;
+}
+
+.heading p {
+    margin-top: 10px;
+    color: #71818a;
+}
+
+/* CAR GRID */
+.car-grid {
+    max-width: 1250px;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.car-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.car-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,.13);
+}
+
+.car-image {
+    width: 100%;
+    height: 220px;
+    background: #e9eff2;
+}
+
+.car-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #71818a;
+}
+
+.car-details {
+    padding: 20px;
+}
+
+.car-details h3 {
+    color: #082c3c;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.car-number {
+    color: #73828b;
+    margin-bottom: 18px;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.spec {
+    background: #f0f6f7;
+    padding: 11px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.select-btn {
+    width: 100%;
+    padding: 14px;
+    background: #082c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.select-btn:hover {
+    background: #00a98f;
+}
+
+.empty-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    color: #71818a;
+}
+
+/* POPUP */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.78);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.popup-container {
+    background: white;
+    width: 850px;
+    max-width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 28px;
+    border-radius: 16px;
+    position: relative;
+    animation: popup .3s ease;
+}
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-popup {
+    position: sticky;
+    float: right;
+    top: 0;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #edf2f4;
+    color: #082c3c;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.popup-title {
+    font-size: 27px;
+    color: #082c3c;
+    margin: 5px 40px 8px 0;
+}
+
+.popup-number {
+    color: #75848d;
+    margin-bottom: 20px;
+}
+
+.popup-container h3 {
+    margin: 22px 0 13px;
+    color: #123c50;
+}
+
+/* FOUR-SIDE GALLERY */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.photo-gallery div {
+    background: #f0f5f6;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-gallery p {
+    padding: 10px;
+    font-weight: bold;
+}
+
+.photo-placeholder {
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #71818a;
+}
+
+/* SPECIFICATIONS */
+.popup-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.popup-specs p {
+    background: #f0f6f7;
+    padding: 13px;
+    border-radius: 8px;
+}
+
+/* DRIVER */
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f0f6f7;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.driver-photo {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    background: #e1e8eb;
+}
+
+.driver-info h4 {
+    font-size: 20px;
+    color: #082c3c;
+    margin-bottom: 8px;
+}
+
+.driver-info p {
+    color: #627680;
+    margin: 6px 0;
+}
+
+/* REGISTER */
+.register-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: #00a98f;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register-btn:hover {
+    background: #087d70;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 50px;
+    padding: 22px;
+    background: #082c3c;
+    text-align: center;
+    color: white;
+}
+
+/* TABLET */
+@media (max-width: 950px) {
+    .car-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    header {
+        padding: 16px 5%;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .heading h1 {
+        font-size: 27px;
+    }
+
+    .car-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .popup-container {
+        padding: 17px;
+    }
+
+    .popup-title {
+        font-size: 22px;
+    }
+
+    .photo-gallery {
+        gap: 8px;
+    }
+
+    .photo-gallery img,
+    .photo-placeholder {
+        height: 120px;
+    }
+
+    .popup-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .driver-info {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .driver-photo {
+        width: 75px;
+        height: 75px;
+    }
+
+    .driver-info h4 {
+        font-size: 17px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">Travel<span>Go</span></div>
-    <div>Car Booking</div>
+    <div class="logo">TravelGo.</div>
+    <a href="/">Home</a>
 </header>
 
-<section class="hero">
+<section class="heading">
     <h1>Choose Your Perfect Car</h1>
-    <p>Comfortable journeys begin with the right vehicle.</p>
+    <p>Explore our available cars and enjoy your journey.</p>
 </section>
 
-<div class="container">
+<!-- CAR LIST -->
+<div class="car-grid">
 
-    <!-- DATE SELECTION -->
-    <div class="date-box">
-        <h2>Journey Details</h2>
+{% for car in data %}
 
-        <div class="date-inputs">
-            <div>
-                <label>Pickup Date</label>
-                <input type="date" id="pickupDate">
-            </div>
+<div class="car-card">
 
-            <div>
-                <label>Drop-off Date</label>
-                <input type="date" id="dropDate">
-            </div>
-        </div>
-
-        <button class="continue-btn" onclick="showCars()">
-            Continue to Cars
-        </button>
+    <div class="car-image">
+        {% if car.front_photo %}
+            <img src="{{ car.front_photo.url }}"
+                 alt="{{ car.car_company }}">
+        {% else %}
+            <div class="image-placeholder">Car image not available</div>
+        {% endif %}
     </div>
 
-    <!-- CAR SELECTION -->
-    <section id="carSection">
+    <div class="car-details">
 
-        <div class="section-title">
-            <h2>Available Tourist Cars</h2>
-            <p>Select the car that suits your journey</p>
-            <p id="journeySummary"></p>
+        <h3>{{ car.car_company }}</h3>
+
+        <p class="car-number">
+            Registration: {{ car.car_number }}
+        </p>
+
+        <div class="specs">
+            <div class="spec">👥 {{ car.seats }} Seats</div>
+            <div class="spec">❄️ {{ car.couch_type }}</div>
+            <div class="spec">🧳 {{ car.luggage }} Luggage</div>
+            <div class="spec">💺 {{ car.seat_type }} Seats</div>
         </div>
 
-        <div class="car-grid">
+        <button
+            type="button"
+            class="select-btn"
+            onclick="openCarPopup(this)"
 
-            <!-- CAR 1 -->
-            <div class="car-card">
-                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf"
-                     alt="Toyota Innova Crysta">
+            data-company="{{ car.car_company|default:'' }}"
+            data-number="{{ car.car_number|default:'' }}"
+            data-seats="{{ car.seats|default:'' }}"
+            data-ac="{{ car.couch_type|default:'' }}"
+            data-luggage="{{ car.luggage|default:'' }}"
+            data-seat="{{ car.seat_type|default:'' }}"
 
-                <div class="car-details">
-                    <h3>Car 01 - Toyota Innova Crysta</h3>
-                    <p class="car-number">Registration: AP 03 XX 1001</p>
+            data-front="{% if car.front_photo %}{{ car.front_photo.url }}{% endif %}"
+            data-back="{% if car.back_photo %}{{ car.back_photo.url }}{% endif %}"
+            data-left="{% if car.left_photo %}{{ car.left_photo.url }}{% endif %}"
+            data-right="{% if car.right_photo %}{{ car.right_photo.url }}{% endif %}"
 
-                    <div class="specs">
-                        <div class="spec">👥 7 Seats</div>
-                        <div class="spec">❄️ AC Available</div>
-                        <div class="spec">🧳 Large Luggage</div>
-                        <div class="spec">⚙️ Manual</div>
-                        <div class="spec">💺 Comfortable Seats</div>
-                        <div class="spec">🚘 SUV</div>
-                    </div>
+            data-driver="{{ car.driver_name.name|default:'' }}"
+            data-experience="{{ car.driver_name.experience|default:'' }}"
+            data-phone="{{ car.driver_name.phone|default:'' }}"
 
-                    <button class="select-btn"
-                        onclick="selectCar('Toyota Innova Crysta','AP 03 XX 1001')">
-                        Select Car
-                    </button>
-                </div>
+            data-driver-photo="{% if car.driver_name.driveimg %}{{ car.driver_name.driveimg.url }}{% endif %}">
+
+            Book Car
+        </button>
+
+    </div>
+</div>
+
+{% empty %}
+
+<p class="empty-message">
+    No active cars are currently available.
+</p>
+
+{% endfor %}
+
+</div>
+
+<!-- CAR DETAILS POPUP -->
+<div class="popup-overlay" id="carPopup">
+
+    <div class="popup-container">
+
+        <button class="close-popup"
+                type="button"
+                onclick="closeCarPopup()">×</button>
+
+        <h2 class="popup-title" id="popupCompany"></h2>
+        <p class="popup-number" id="popupNumber"></p>
+
+        <h3>Car Photos - Four Side View</h3>
+
+        <div class="photo-gallery">
+
+            <div>
+                <img id="frontImg" src="" alt="Front View">
+                <p>Front View</p>
             </div>
 
-            <!-- CAR 2 -->
-            <div class="car-card">
-                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d"
-                     alt="Sedan car">
-
-                <div class="car-details">
-                    <h3>Car 02 - Hyundai Verna</h3>
-                    <p class="car-number">Registration: AP 03 XX 1002</p>
-
-                    <div class="specs">
-                        <div class="spec">👥 5 Seats</div>
-                        <div class="spec">❄️ AC Available</div>
-                        <div class="spec">🧳 Medium Luggage</div>
-                        <div class="spec">⚙️ Automatic</div>
-                        <div class="spec">💺 Premium Seats</div>
-                        <div class="spec">🚘 Sedan</div>
-                    </div>
-
-                    <button class="select-btn"
-                        onclick="selectCar('Hyundai Verna','AP 03 XX 1002')">
-                        Select Car
-                    </button>
-                </div>
+            <div>
+                <img id="backImg" src="" alt="Back View">
+                <p>Back View</p>
             </div>
 
-            <!-- CAR 3 -->
-            <div class="car-card">
-                <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b"
-                     alt="SUV car">
-
-                <div class="car-details">
-                    <h3>Car 03 - Mahindra XUV700</h3>
-                    <p class="car-number">Registration: AP 03 XX 1003</p>
-
-                    <div class="specs">
-                        <div class="spec">👥 7 Seats</div>
-                        <div class="spec">❄️ AC Available</div>
-                        <div class="spec">🧳 Large Luggage</div>
-                        <div class="spec">⚙️ Automatic</div>
-                        <div class="spec">💺 Premium Seats</div>
-                        <div class="spec">🚘 SUV</div>
-                    </div>
-
-                    <button class="select-btn"
-                        onclick="selectCar('Mahindra XUV700','AP 03 XX 1003')">
-                        Select Car
-                    </button>
-                </div>
+            <div>
+                <img id="leftImg" src="" alt="Left View">
+                <p>Left View</p>
             </div>
 
-            <!-- CAR 4 -->
-            <div class="car-card">
-                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
-                     alt="Luxury car">
-
-                <div class="car-details">
-                    <h3>Car 04 - Luxury Sedan</h3>
-                    <p class="car-number">Registration: AP 03 XX 1004</p>
-
-                    <div class="specs">
-                        <div class="spec">👥 5 Seats</div>
-                        <div class="spec">❄️ AC Available</div>
-                        <div class="spec">🧳 Medium Luggage</div>
-                        <div class="spec">⚙️ Automatic</div>
-                        <div class="spec">💺 Luxury Seats</div>
-                        <div class="spec">🚘 Premium Sedan</div>
-                    </div>
-
-                    <button class="select-btn"
-                        onclick="selectCar('Luxury Sedan','AP 03 XX 1004')">
-                        Select Car
-                    </button>
-                </div>
-            </div>
-
-            <!-- CAR 5 -->
-            <div class="car-card">
-                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2"
-                     alt="Maruti Ertiga">
-
-                <div class="car-details">
-                    <h3>Car 05 - Maruti Ertiga</h3>
-                    <p class="car-number">Registration: AP 03 XX 1005</p>
-
-                    <div class="specs">
-                        <div class="spec">👥 7 Seats</div>
-                        <div class="spec">❄️ AC Available</div>
-                        <div class="spec">🧳 Medium Luggage</div>
-                        <div class="spec">⚙️ Manual</div>
-                        <div class="spec">💺 Comfortable Seats</div>
-                        <div class="spec">🚘 MUV</div>
-                    </div>
-
-                    <button class="select-btn"
-                        onclick="selectCar('Maruti Ertiga','AP 03 XX 1005')">
-                        Select Car
-                    </button>
-                </div>
+            <div>
+                <img id="rightImg" src="" alt="Right View">
+                <p>Right View</p>
             </div>
 
         </div>
 
-        <div id="selectedMessage"></div>
+        <h3>Car Specifications</h3>
 
-    </section>
+        <div class="popup-specs">
+            <p id="popupSeats"></p>
+            <p id="popupAC"></p>
+            <p id="popupLuggage"></p>
+            <p id="popupSeatType"></p>
+        </div>
+
+        <h3>Driver Information</h3>
+
+        <div class="driver-info">
+
+            <img id="driverPhoto"
+                 class="driver-photo"
+                 src="{% static 'images/default-driver.jpg' %}"
+                 alt="Driver Photo">
+
+            <div>
+                <h4 id="driverName"></h4>
+                <p id="driverExperience"></p>
+                <p id="driverPhone"></p>
+            </div>
+
+        </div>
+
+        <button type="button"
+                class="register-btn"
+                id="registerButton">
+            Register
+        </button>
+
+    </div>
 </div>
 
 <footer>
@@ -193,81 +550,97 @@
 </footer>
 
 <script>
-const pickup = document.getElementById("pickupDate");
-const drop = document.getElementById("dropDate");
+const defaultDriverImage = "{% static 'images/default-driver.jpg' %}";
 
-function getToday() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
+function setImage(imageId, imageUrl, fallback = "") {
+    const img = document.getElementById(imageId);
 
-    return `${year}-${month}-${day}`;
+    img.onerror = function () {
+        if (fallback && img.src !== fallback) {
+            img.src = fallback;
+        } else {
+            img.style.display = "none";
+        }
+    };
+
+    img.style.display = "block";
+    img.src = imageUrl || fallback;
+
+    if (!imageUrl && !fallback) {
+        img.style.display = "none";
+    }
 }
 
-pickup.min = getToday();
-drop.min = getToday();
+function openCarPopup(button) {
 
-pickup.addEventListener("change", function() {
-    if (!pickup.value) return;
+    const d = button.dataset;
 
-    const nextDay = new Date(pickup.value + "T00:00:00");
-    nextDay.setDate(nextDay.getDate() + 1);
+    document.getElementById("popupCompany").textContent =
+        d.company || "Car Details";
 
-    const year = nextDay.getFullYear();
-    const month = String(nextDay.getMonth() + 1).padStart(2, "0");
-    const day = String(nextDay.getDate()).padStart(2, "0");
+    document.getElementById("popupNumber").textContent =
+        "Registration: " + (d.number || "Not available");
 
-    const minimumDrop = `${year}-${month}-${day}`;
+    setImage("frontImg", d.front);
+    setImage("backImg", d.back);
+    setImage("leftImg", d.left);
+    setImage("rightImg", d.right);
 
-    drop.min = minimumDrop;
+    document.getElementById("popupSeats").textContent =
+        "👥 " + (d.seats || "N/A") + " Seats";
 
-    if (drop.value && drop.value < minimumDrop) {
-        drop.value = "";
+    document.getElementById("popupAC").textContent =
+        "❄️ " + (d.ac || "N/A");
+
+    document.getElementById("popupLuggage").textContent =
+        "🧳 " + (d.luggage || "N/A") + " Luggage";
+
+    document.getElementById("popupSeatType").textContent =
+        "💺 " + (d.seat || "N/A") + " Seats";
+
+    document.getElementById("driverName").textContent =
+        d.driver || "Driver details not available";
+
+    document.getElementById("driverExperience").textContent =
+        "Experience: " + (d.experience || "Not provided");
+
+    document.getElementById("driverPhone").textContent =
+        "Phone: " + (d.phone || "Not provided");
+
+    setImage("driverPhoto", d.driverPhoto, defaultDriverImage);
+
+    // Redirect to booking page with selected car number
+    document.getElementById("registerButton").onclick = function () {
+
+        const bookingUrl = "#";
+
+        const params = new URLSearchParams({
+            car_number: d.number || ""
+        });
+
+        window.location.href = bookingUrl + "?" + params.toString();
+    };
+
+    document.getElementById("carPopup").style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function closeCarPopup() {
+    document.getElementById("carPopup").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+document.getElementById("carPopup").addEventListener("click", function(event) {
+    if (event.target === this) {
+        closeCarPopup();
     }
 });
 
-function showCars() {
-    if (!pickup.value) {
-        alert("Please select pickup date.");
-        return;
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeCarPopup();
     }
-
-    if (pickup.value < getToday()) {
-        alert("Pickup date cannot be in the past.");
-        return;
-    }
-
-  
-
-    document.getElementById("journeySummary").innerHTML =
-        "Pickup: " + pickup.value + " | Drop-off: " + drop.value;
-
-    document.getElementById("carSection").style.display = "block";
-
-    document.getElementById("carSection").scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-function selectCar(name, number) {
-    const message = document.getElementById("selectedMessage");
-
-    message.style.display = "block";
-
-    message.innerHTML = `
-        <h3>Car Selected Successfully!</h3>
-        <p><strong>Car:</strong> ${name}</p>
-        <p><strong>Registration:</strong> ${number}</p>
-        <p><strong>Pickup Date:</strong> ${pickup.value}</p>
-        <p><strong>Drop-off Date:</strong> ${drop.value}</p>
-        <p>Your car selection is ready for the next booking step.</p>
-    `;
-
-    message.scrollIntoView({ behavior: "smooth" });
-
-
-}
+});
 </script>
 
 </body>
