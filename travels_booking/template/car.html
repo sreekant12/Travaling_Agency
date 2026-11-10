@@ -454,7 +454,8 @@ footer {
             data-experience="{{ car.driver_name.experience|default:'' }}"
             data-phone="{{ car.driver_name.phone|default:'' }}"
 
-            data-driver-photo="{% if car.driver_name.driveimg %}{{ car.driver_name.driveimg.url }}{% endif %}">
+           data-driver-photo="{% if car.driver_name and car.driver_name.photo %}{{ car.driver_name.photo.url }}{% endif %}"
+            >
 
             Book Car
         </button>
@@ -550,24 +551,25 @@ footer {
 </footer>
 
 <script>
-const defaultDriverImage = "{% static 'images/default-driver.jpg' %}";
 
-function setImage(imageId, imageUrl, fallback = "") {
+
+function setImage(imageId, imageUrl) {
     const img = document.getElementById(imageId);
 
-    img.onerror = function () {
-        if (fallback && img.src !== fallback) {
-            img.src = fallback;
-        } else {
+    if (!img) return;
+
+    if (imageUrl) {
+        img.onerror = function () {
+            console.error("Driver image failed to load:", imageUrl);
             img.style.display = "none";
-        }
-    };
+        };
 
-    img.style.display = "block";
-    img.src = imageUrl || fallback;
-
-    if (!imageUrl && !fallback) {
+        img.src = imageUrl;
+        img.style.display = "block";
+    } else {
+        img.removeAttribute("src");
         img.style.display = "none";
+        console.error("Employee photo is empty.");
     }
 }
 
@@ -607,7 +609,7 @@ function openCarPopup(button) {
     document.getElementById("driverPhone").textContent =
         "Phone: " + (d.phone || "Not provided");
 
-    setImage("driverPhoto", d.driverPhoto, defaultDriverImage);
+    setImage("driverPhoto", d.driverPhoto);
 
     // Redirect to booking page with selected car number
     document.getElementById("registerButton").onclick = function () {

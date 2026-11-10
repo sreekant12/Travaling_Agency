@@ -1,387 +1,653 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="{% static 'css/bus.css'%}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TravelGo | Smart Bus Booking</title>
+<title>TravelGo | bus Booking</title>
 
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f3f7f8;
+    color: #183442;
+}
+
+/* HEADER */
+header {
+    background: #082c3c;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #00c2a8;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* HEADING */
+.heading {
+    text-align: center;
+    padding: 45px 15px 25px;
+}
+
+.heading h1 {
+    font-size: 34px;
+    color: #082c3c;
+}
+
+.heading p {
+    margin-top: 10px;
+    color: #71818a;
+}
+
+/* bus GRID */
+.bus-grid {
+    max-width: 1250px;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.bus-busd {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.bus-busd:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,.13);
+}
+
+.bus-image {
+    width: 100%;
+    height: 220px;
+    background: #e9eff2;
+}
+
+.bus-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #71818a;
+}
+
+.bus-details {
+    padding: 20px;
+}
+
+.bus-details h3 {
+    color: #082c3c;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.bus-number {
+    color: #73828b;
+    margin-bottom: 18px;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.spec {
+    background: #f0f6f7;
+    padding: 11px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.select-btn {
+    width: 100%;
+    padding: 14px;
+    background: #082c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.select-btn:hover {
+    background: #00a98f;
+}
+
+.empty-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    color: #71818a;
+}
+
+/* POPUP */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.78);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.popup-container {
+    background: white;
+    width: 850px;
+    max-width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 28px;
+    border-radius: 16px;
+    position: relative;
+    animation: popup .3s ease;
+}
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-popup {
+    position: sticky;
+    float: right;
+    top: 0;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #edf2f4;
+    color: #082c3c;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.popup-title {
+    font-size: 27px;
+    color: #082c3c;
+    margin: 5px 40px 8px 0;
+}
+
+.popup-number {
+    color: #75848d;
+    margin-bottom: 20px;
+}
+
+.popup-container h3 {
+    margin: 22px 0 13px;
+    color: #123c50;
+}
+
+/* FOUR-SIDE GALLERY */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.photo-gallery div {
+    background: #f0f5f6;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-gallery p {
+    padding: 10px;
+    font-weight: bold;
+}
+
+.photo-placeholder {
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #71818a;
+}
+
+/* SPECIFICATIONS */
+.popup-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.popup-specs p {
+    background: #f0f6f7;
+    padding: 13px;
+    border-radius: 8px;
+}
+
+/* DRIVER */
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f0f6f7;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.driver-photo {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    background: #e1e8eb;
+}
+
+.driver-info h4 {
+    font-size: 20px;
+    color: #082c3c;
+    margin-bottom: 8px;
+}
+
+.driver-info p {
+    color: #627680;
+    margin: 6px 0;
+}
+
+/* REGISTER */
+.register-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: #00a98f;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register-btn:hover {
+    background: #087d70;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 50px;
+    padding: 22px;
+    background: #082c3c;
+    text-align: center;
+    color: white;
+}
+
+/* TABLET */
+@media (max-width: 950px) {
+    .bus-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    header {
+        padding: 16px 5%;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .heading h1 {
+        font-size: 27px;
+    }
+
+    .bus-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .popup-container {
+        padding: 17px;
+    }
+
+    .popup-title {
+        font-size: 22px;
+    }
+
+    .photo-gallery {
+        gap: 8px;
+    }
+
+    .photo-gallery img,
+    .photo-placeholder {
+        height: 120px;
+    }
+
+    .popup-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .driver-info {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .driver-photo {
+        width: 75px;
+        height: 75px;
+    }
+
+    .driver-info h4 {
+        font-size: 17px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header>
-    <div class="logo">Travel<span>Go</span></div>
-    <p>Your Trusted Tourist Travels</p>
+    <div class="logo">TravelGo.</div>
+    <a href="/">Home</a>
 </header>
 
-<!-- HERO -->
-
-<section class="hero">
-    <div>
-        <h1>Explore Your <span>Next Journey</span></h1>
-        <p>Travel Comfortably, Discover Beautiful Destinations</p>
-    </div>
+<section class="heading">
+    <h1>Choose Your Perfect bus</h1>
+    <p>Explore our available bus and enjoy your journey.</p>
 </section>
 
-<!-- DATE SELECTION -->
+<!-- bus LIST -->
+<div class="bus-grid">
 
-<div class="booking-container" id="dateSection">
+{% for bus in data %}
 
-    <div class="booking-header">
-        <h2>📅 Plan Your Journey</h2>
-        <p>Select your pickup and drop-off dates</p>
+<div class="bus-busd">
+
+    <div class="bus-image">
+        {% if bus.front_photo %}
+            <img src="{{ bus.front_photo.url }}"
+                 alt="{{ bus.bus_company }}">
+        {% else %}
+            <div class="image-placeholder">bus image not available</div>
+        {% endif %}
     </div>
 
-    <div class="booking-content">
+    <div class="bus-details">
 
-        <div class="date-section">
+        <h3>{{ bus.bus_company }}</h3>
 
-            <div class="date-card">
-
-                <label>📍 Pickup Date</label>
-
-                <input type="date" id="pickupDate">
-
-            </div>
-
-            <div class="date-card">
-
-                <label>🏁 Drop-off Date</label>
-
-                <input type="date" id="dropDate">
-
-            </div>
-
-        </div>
-
-        <button class="search-btn" onclick="searchJourney()">
-            Continue Your Journey →
-        </button>
-
-        <p id="dateMessage"></p>
-
-    </div>
-
-</div>
-
-
-<!-- BUS SELECTION SECTION -->
-
-<div class="container" id="busSection">
-
-    <div class="heading">
-
-        <h2>Our Tourist Bus Fleet</h2>
-
-        <p>
-            Select your preferred bus from our five available tourist buses
+        <p class="bus-number">
+            Registration: {{ bus.bus_number }}
         </p>
 
-    </div>
-
-    <div class="journey-summary" id="journeySummary"></div>
-
-    <div class="bus-grid">
-
-        <!-- BUS 1 -->
-
-        <div class="bus-card">
-
-            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e"
-            alt="Tourist Bus 1">
-
-            <div class="bus-info">
-
-                <div class="bus-title">
-                    <h3>Tourist Bus - 01</h3>
-                    <span class="available">Available</span>
-                </div>
-
-                <p class="bus-number">Bus No: AP 03 XX 1234</p>
-
-                <div class="details">
-                    <p>🚌 Model: BharatBenz</p>
-                    <p>💺 Seats: 40</p>
-                    <p>❄️ AC: Yes</p>
-                    <p>🪑 Seat: Pushback</p>
-                    <p>🧳 Luggage: Large</p>
-                    <p>📺 Entertainment: Yes</p>
-                </div>
-
-                <button class="select-btn"
-                onclick="selectBus('Tourist Bus 01','AP 03 XX 1234')">
-                    Select This Bus
-                </button>
-
-            </div>
+        <div class="specs">
+            <div class="spec">👥 {{ bus.seats }} Seats</div>
+            <div class="spec">❄️ {{ bus.couch_type }}</div>
+            <div class="spec">🧳 {{ bus.luggage }} Luggage</div>
+            <div class="spec">💺 {{ bus.seat_type }} Seats</div>
+            <div class="spec">💺Entertainment : {{ bus.Entertainment }} </div>
         </div>
 
+        <button
+            type="button"
+            class="select-btn"
+            onclick="openbusPopup(this)"
 
-        <!-- BUS 2 -->
+            data-company="{{ bus.bus_company|default:'' }}"
+            data-number="{{ bus.bus_number|default:'' }}"
+            data-seats="{{ bus.seats|default:'' }}"
+            data-ac="{{ bus.couch_type|default:'' }}"
+            data-luggage="{{ bus.luggage|default:'' }}"
+            data-seat="{{ bus.seat_type|default:'' }}"
+            data-Entertainment="{{ bus.Entertainment|default:'' }}"
 
-        <div class="bus-card">
+            data-front="{% if bus.front_photo %}{{ bus.front_photo.url }}{% endif %}"
+            data-back="{% if bus.back_photo %}{{ bus.back_photo.url }}{% endif %}"
+            data-left="{% if bus.left_photo %}{{ bus.left_photo.url }}{% endif %}"
+            data-right="{% if bus.right_photo %}{{ bus.right_photo.url }}{% endif %}"
 
-            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957"
-            alt="Tourist Bus 2">
+            data-driver="{{ bus.primary_driver.name|default:'' }}"
+            data-experience="{{ bus.primary_driver.experience|default:'' }}"
+            data-phone="{{ bus.primary_driver.phone|default:'' }}"
 
-            <div class="bus-info">
+            data-driver="{{ bus.secondary_driver.name|default:'' }}"
+            data-experience="{{ secondary_driver.experience|default:'' }}"
+            data-phone="{{ bus.secondary_driver.phone|default:'' }}"
 
-                <div class="bus-title">
-                    <h3>Tourist Bus - 02</h3>
-                    <span class="available">Available</span>
-                </div>
-
-                <p class="bus-number">Bus No: AP 03 XX 2345</p>
-
-                <div class="details">
-                    <p>🚌 Model: Ashok Leyland</p>
-                    <p>💺 Seats: 35</p>
-                    <p>❄️ AC: Yes</p>
-                    <p>🪑 Seat: Recliner</p>
-                    <p>🧳 Luggage: Medium</p>
-                    <p>📺 Entertainment: Yes</p>
-                </div>
-
-                <button class="select-btn"
-                onclick="selectBus('Tourist Bus 02','AP 03 XX 2345')">
-                    Select This Bus
-                </button>
-
-            </div>
-        </div>
-
-
-        <!-- BUS 3 -->
-
-        <div class="bus-card">
-
-            <img src="https://images.unsplash.com/photo-1557223562-6c77ef16210f"
-            alt="Tourist Bus 3">
-
-            <div class="bus-info">
-
-                <div class="bus-title">
-                    <h3>Tourist Bus - 03</h3>
-                    <span class="available">Available</span>
-                </div>
-
-                <p class="bus-number">Bus No: AP 03 XX 3456</p>
-
-                <div class="details">
-                    <p>🚌 Model: Volvo Coach</p>
-                    <p>💺 Seats: 45</p>
-                    <p>❄️ AC: Yes</p>
-                    <p>🪑 Seat: Pushback</p>
-                    <p>🧳 Luggage: Large</p>
-                    <p>📺 Entertainment: Yes</p>
-                </div>
-
-                <button class="select-btn"
-                onclick="selectBus('Tourist Bus 03','AP 03 XX 3456')">
-                    Select This Bus
-                </button>
-
-            </div>
-        </div>
-
-
-        <!-- BUS 4 -->
-
-        <div class="bus-card">
-
-            <img src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4"
-            alt="Tourist Bus 4">
-
-            <div class="bus-info">
-
-                <div class="bus-title">
-                    <h3>Tourist Bus - 04</h3>
-                    <span class="available">Available</span>
-                </div>
-
-                <p class="bus-number">Bus No: AP 03 XX 4567</p>
-
-                <div class="details">
-                    <p>🚌 Model: Scania Coach</p>
-                    <p>💺 Seats: 40</p>
-                    <p>❄️ AC: Yes</p>
-                    <p>🪑 Seat: Recliner</p>
-                    <p>🧳 Luggage: Large</p>
-                    <p>📺 Entertainment: Yes</p>
-                </div>
-
-                <button class="select-btn"
-                onclick="selectBus('Tourist Bus 04','AP 03 XX 4567')">
-                    Select This Bus
-                </button>
-
-            </div>
-        </div>
-
-
-        <!-- BUS 5 -->
-
-        <div class="bus-card">
-
-            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e"
-            alt="Tourist Bus 5">
-
-            <div class="bus-info">
-
-                <div class="bus-title">
-                    <h3>Tourist Bus - 05</h3>
-                    <span class="available">Available</span>
-                </div>
-
-                <p class="bus-number">Bus No: AP 03 XX 5678</p>
-
-                <div class="details">
-                    <p>🚌 Model: Eicher Coach</p>
-                    <p>💺 Seats: 30</p>
-                    <p>❄️ AC: No</p>
-                    <p>🪑 Seat: Pushback</p>
-                    <p>🧳 Luggage: Medium</p>
-                    <p>📺 Entertainment: No</p>
-                </div>
-
-                <button class="select-btn"
-                onclick="selectBus('Tourist Bus 05','AP 03 XX 5678')">
-                    Select This Bus
-                </button>
-
-            </div>
-        </div>
+            data-driver-photo="{% if bus.primary_driver.driveimg %}{{ bus.primary_driver.driveimg.url }}{% endif %}">
+            
+            
+            Book bus
+        </button>
 
     </div>
+</div>
 
-    <div id="busMessage"></div>
+{% empty %}
+
+<p class="empty-message">
+    No active buss are currently available.
+</p>
+
+{% endfor %}
 
 </div>
 
+<!-- bus DETAILS POPUP -->
+<div class="popup-overlay" id="busPopup">
 
-<!-- FOOTER -->
+    <div class="popup-container">
+
+        <button class="close-popup"
+                type="button"
+                onclick="closebusPopup()">×</button>
+
+        <h2 class="popup-title" id="popupCompany"></h2>
+        <p class="popup-number" id="popupNumber"></p>
+
+        <h3>bus Photos - Four Side View</h3>
+
+        <div class="photo-gallery">
+
+            <div>
+                <img id="frontImg" src="" alt="Front View">
+                <p>Front View</p>
+            </div>
+
+            <div>
+                <img id="backImg" src="" alt="Back View">
+                <p>Back View</p>
+            </div>
+
+            <div>
+                <img id="leftImg" src="" alt="Left View">
+                <p>Left View</p>
+            </div>
+
+            <div>
+                <img id="rightImg" src="" alt="Right View">
+                <p>Right View</p>
+            </div>
+
+        </div>
+
+        <h3>bus Specifications</h3>
+
+        <div class="popup-specs">
+            <p id="popupSeats"></p>
+            <p id="popupAC"></p>
+            <p id="popupLuggage"></p>
+            <p id="popupSeatType"></p>
+        </div>
+
+        <h3>Driver Information</h3>
+
+        <div class="driver-info">
+
+            <img id="driverPhoto"
+                 class="driver-photo"
+                 src="{% static 'images/default-driver.jpg' %}"
+                 alt="Driver Photo">
+
+            <div>
+                <h4 id="driverName"></h4>
+                <p id="driverExperience"></p>
+                <p id="driverPhone"></p>
+            </div>
+
+        </div>
+
+        <button type="button"
+                class="register-btn"
+                id="registerButton">
+            Register
+        </button>
+
+    </div>
+</div>
 
 <footer>
-    <p>© 2026 TravelGo | Safe Journey, Happy Journey</p>
+    © 2026 TravelGo | Your Journey, Our Responsibility
 </footer>
 
-
 <script>
+const defaultDriverImage = "{% static 'images/default-driver.jpg' %}";
 
-// TODAY'S DATE
+function setImage(imageId, imageUrl, fallback = "") {
+    const img = document.getElementById(imageId);
 
-const today = new Date();
+    img.onerror = function () {
+        if (fallback && img.src !== fallback) {
+            img.src = fallback;
+        } else {
+            img.style.display = "none";
+        }
+    };
 
-const todayString =
-    today.getFullYear() + "-" +
-    String(today.getMonth()+1).padStart(2,"0") + "-" +
-    String(today.getDate()).padStart(2,"0");
+    img.style.display = "block";
+    img.src = imageUrl || fallback;
 
-const pickup = document.getElementById("pickupDate");
-const drop = document.getElementById("dropDate");
-
-pickup.min = todayString;
-drop.min = todayString;
-
-
-// PICKUP DATE CHANGE
-
-pickup.addEventListener("change", function() {
-
-    if (!pickup.value) return;
-
-    let nextDate = new Date(pickup.value + "T00:00:00");
-
-    nextDate.setDate(nextDate.getDate()+1);
-
-    let minDropDate =
-        nextDate.getFullYear() + "-" +
-        String(nextDate.getMonth()+1).padStart(2,"0") + "-" +
-        String(nextDate.getDate()).padStart(2,"0");
-
-    drop.min = minDropDate;
-
-    if (drop.value && drop.value < minDropDate) {
-        drop.value = "";
+    if (!imageUrl && !fallback) {
+        img.style.display = "none";
     }
+}
 
+function openbusPopup(button) {
+
+    const d = button.dataset;
+
+    document.getElementById("popupCompany").textContent =
+        d.company || "bus Details";
+
+    document.getElementById("popupNumber").textContent =
+        "Registration: " + (d.number || "Not available");
+
+    setImage("frontImg", d.front);
+    setImage("backImg", d.back);
+    setImage("leftImg", d.left);
+    setImage("rightImg", d.right);
+
+    document.getElementById("popupSeats").textContent =
+        "👥 " + (d.seats || "N/A") + " Seats";
+
+    document.getElementById("popupAC").textContent =
+        "❄️ " + (d.ac || "N/A");
+
+    document.getElementById("popupLuggage").textContent =
+        "🧳 " + (d.luggage || "N/A") + " Luggage";
+
+    document.getElementById("popupSeatType").textContent =
+        "💺 " + (d.seat || "N/A") + " Seats";
+
+    document.getElementById("driverName").textContent =
+        d.driver || "Driver details not available";
+
+    document.getElementById("driverExperience").textContent =
+        "Experience: " + (d.experience || "Not provided");
+
+    document.getElementById("driverPhone").textContent =
+        "Phone: " + (d.phone || "Not provided");
+
+    setImage("driverPhoto", d.driverPhoto, defaultDriverImage);
+
+    // Redirect to booking page with selected bus number
+    document.getElementById("registerButton").onclick = function () {
+
+        const bookingUrl = "#";
+
+        const params = new URLSearchParams({
+            bus_number: d.number || ""
+        });
+
+        window.location.href = bookingUrl + "?" + params.toString();
+    };
+
+    document.getElementById("busPopup").style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function closebusPopup() {
+    document.getElementById("busPopup").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+document.getElementById("busPopup").addEventListener("click", function(event) {
+    if (event.target === this) {
+        closebusPopup();
+    }
 });
 
-
-// CONTINUE JOURNEY
-
-function searchJourney() {
-
-    const message = document.getElementById("dateMessage");
-
-    if (!pickup.value) {
-
-        message.style.color = "red";
-
-        message.innerHTML =
-        "Please select  pickup date .";
-
-        return;
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closebusPopup();
     }
-
-    if (pickup.value < todayString) {
-
-        message.style.color = "red";
-        message.innerHTML = "Pickup date cannot be in the past.";
-
-        return;
-    }
-
-   
-
-    // DISPLAY SELECTED DATES
-
-    document.getElementById("journeySummary").innerHTML =
-        "📍 Pickup: " + pickup.value +
-        " &nbsp; | &nbsp; 🏁 Drop-off: " + drop.value;
-
-    message.style.color = "green";
-    message.innerHTML = "Dates selected successfully!";
-
-    // SHOW BUS SECTION
-
-    document.getElementById("busSection").style.display = "block";
-
-    document.getElementById("busSection").scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-// SELECT BUS
-
-function selectBus(name, number) {
-
-    const busMessage = document.getElementById("busMessage");
-
-    busMessage.innerHTML =
-        "You Selected: " + name + " | " + number;
-
-    // PASS DATA TO NEXT DJANGO PAGE
-
-    const params = new URLSearchParams({
-        pickup: pickup.value,
-        drop: drop.value,
-        bus: name,
-        number: number
-    });
-
-    
-
-}
-
+});
 </script>
 
 </body>
