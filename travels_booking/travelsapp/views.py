@@ -11,7 +11,6 @@ def home(request):
     return render(request,"home.html")
 def bus(request):
     data=Travel_bus.objects.filter(is_activate=True)
-    print(data)
     return render(request,"bus.html",context={"data":data})
 def car(request):
     data=Travel_car.objects.filter(is_activate=True)

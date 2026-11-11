@@ -1,620 +1,497 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
-:root {
-    --primary: #00b99f;
-    --primary-dark: #078d7c;
-    --dark: #082c3c;
-    --text: #193b46;
-    --muted: #71858b;
-    --background: #f3f7f9;
-    --white: #ffffff;
-    --border: #e3ebed;
-    --shadow: 0 8px 25px rgba(8, 44, 60, 0.09);
-}
-
-/* RESET */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Poppins', sans-serif;
-    background: var(--background);
-    color: var(--text);
-    overflow-x: hidden;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f3f7f8;
+    color: #183442;
 }
-
-/* =====================================
-   HEADER
-===================================== */
 
 header {
-    width: 100%;
-    min-height: 75px;
-    padding: 15px 7%;
-    background: var(--dark);
-    color: white;
-
+    background: #082c3c;
+    padding: 18px 6%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    align-items: center;
 }
 
 .logo {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--primary);
+    font-size: 27px;
+    font-weight: bold;
+    color: #00c2a8;
 }
 
-header span {
+header a {
     color: white;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-header > div:last-child {
-    font-size: 15px;
-    font-weight: 500;
-}
-
-/* =====================================
-   HERO
-===================================== */
-
-.hero {
-    min-height: 260px;
-    padding: 60px 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+.heading {
     text-align: center;
-    color: white;
-
-    background:
-        linear-gradient(
-            rgba(3, 30, 42, 0.78),
-            rgba(3, 30, 42, 0.70)
-        ),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
-
-    background-size: cover;
-    background-position: center;
+    padding: 45px 15px 25px;
 }
 
-.hero h1 {
-    font-size: clamp(25px, 4vw, 42px);
-    font-weight: 800;
-    margin-bottom: 12px;
+.heading h1 {
+    font-size: 34px;
+    color: #082c3c;
 }
 
-.hero p {
-    font-size: 15px;
-    color: #e3f6f3;
-    line-height: 1.7;
+.heading p {
+    margin-top: 10px;
+    color: #71818a;
 }
 
-/* =====================================
-   MAIN CONTAINER
-===================================== */
-
-.container {
-    width: min(92%, 1250px);
-    margin: 40px auto;
-    flex: 1;
-}
-
-/* =====================================
-   DATE BOX
-===================================== */
-
-.date-box {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    margin-bottom: 45px;
-}
-
-.date-box h2 {
-    font-size: 24px;
-    color: var(--dark);
-    margin-bottom: 22px;
-}
-
-.date-inputs {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
-}
-
-.date-inputs label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 9px;
-}
-
-input[type="date"] {
-    width: 100%;
-    min-width: 0;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    background: #f9fcfc;
-    font-family: inherit;
-    font-size: 14px;
-    outline: none;
-}
-
-input[type="date"]:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 185, 159, 0.12);
-}
-
-/* =====================================
-   BUTTONS
-===================================== */
-
-button {
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 600;
-    color: white;
-
-    background: linear-gradient(
-        135deg,
-        var(--primary),
-        var(--primary-dark)
-    );
-
-    padding: 14px 24px;
-    border-radius: 9px;
-    transition: 0.3s ease;
-}
-
-button:hover {
-    background: var(--dark);
-    transform: translateY(-2px);
-}
-
-.continue-btn {
-    margin-top: 22px;
-    min-width: 190px;
-}
-
-/* =====================================
-   CAR SECTION
-===================================== */
-
-#carSection {
-    display: none;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.section-title h2 {
-    color: var(--dark);
-    font-size: clamp(23px, 3vw, 32px);
-    margin-bottom: 8px;
-}
-
-.section-title p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-#journeySummary {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 9px 18px;
-    background: #e1f7f3;
-    color: var(--primary-dark);
-    border-radius: 30px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-/* =====================================
-   CAR GRID
-===================================== */
+/* CAR CARDS */
 
 .car-grid {
+    max-width: 1250px;
+    margin: auto;
+    padding: 20px;
     display: grid;
-
-    /* Automatically adjusts the number of cards */
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(min(100%, 330px), 1fr)
-    );
-
-    gap: 28px;
-    align-items: stretch;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
 }
 
-/* =====================================
-   CAR CARD
-===================================== */
-
 .car-card {
-    min-width: 0;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-
     background: white;
     border-radius: 15px;
     overflow: hidden;
-
-    border: 1px solid var(--border);
-    box-shadow: 0 5px 20px rgba(8, 44, 60, 0.07);
-
-    transition: transform 0.3s ease,
-                box-shadow 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    transition: .3s;
 }
 
 .car-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 14px 30px rgba(8, 44, 60, 0.13);
 }
-
-/* =====================================
-   CAR IMAGE
-===================================== */
 
 .car-image {
     width: 100%;
-    height: 235px;
-    overflow: hidden;
-    background: #eaf1f3;
+    height: 220px;
+    background: #e9eff2;
 }
 
 .car-image img {
-    display: block;
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-    object-position: center;
-
-    transition: transform 0.4s ease;
 }
 
-.car-card:hover .car-image img {
-    transform: scale(1.05);
-}
-
-.no-image {
+.image-placeholder {
     height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: var(--muted);
-    font-size: 14px;
+    align-items: center;
+    color: #71818a;
 }
 
-/* =====================================
-   CAR DETAILS
-===================================== */
-
 .car-details {
-    padding: 22px;
-
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    padding: 20px;
 }
 
 .car-details h3 {
-    font-size: 21px;
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 7px;
-
-    overflow-wrap: anywhere;
+    color: #082c3c;
+    font-size: 22px;
+    margin-bottom: 8px;
 }
 
 .car-number {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 17px;
-    overflow-wrap: anywhere;
+    color: #73828b;
+    margin-bottom: 18px;
 }
-
-/* =====================================
-   CAR SPECIFICATIONS
-===================================== */
 
 .specs {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 11px;
-    margin-bottom: 22px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .spec {
-    min-width: 0;
-    padding: 12px 10px;
-
-    display: flex;
-    align-items: center;
-
-    background: #f0f8f7;
-    border: 1px solid #e1efec;
+    background: #f0f6f7;
+    padding: 11px;
     border-radius: 8px;
-
-    color: #36545b;
-    font-size: 12px;
-    font-weight: 500;
-
-    overflow-wrap: anywhere;
+    font-size: 13px;
 }
 
-.spec:hover {
-    background: #e0f5f0;
+.select-btn,
+.register-btn,
+.submit-btn,
+.otp-btn,
+.back-btn {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s;
 }
-
-/* =====================================
-   SELECT BUTTON
-===================================== */
 
 .select-btn {
     width: 100%;
-    margin-top: auto;
     padding: 14px;
-    font-size: 14px;
+    background: #082c3c;
+    color: white;
+    font-size: 16px;
 }
 
-/* =====================================
-   EMPTY MESSAGE
-===================================== */
+.select-btn:hover {
+    background: #00a98f;
+}
 
 .empty-message {
     grid-column: 1 / -1;
-    padding: 35px 20px;
     text-align: center;
     background: white;
+    padding: 40px;
     border-radius: 12px;
-    color: var(--muted);
+    color: #71818a;
 }
 
-/* =====================================
-   SELECTED CAR MESSAGE
-===================================== */
+/* POPUP */
 
-#selectedMessage {
+.popup-overlay {
     display: none;
-    margin-top: 30px;
-    padding: 25px;
-
-    background: #e5f8f2;
-    border: 1px solid #b9eadc;
-    border-left: 5px solid var(--primary);
-
-    border-radius: 12px;
-    line-height: 2;
-    box-shadow: var(--shadow);
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.78);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 }
 
-#selectedMessage h3 {
-    color: var(--primary-dark);
-    font-size: 21px;
+.popup-container {
+    background: white;
+    width: 850px;
+    max-width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 28px;
+    border-radius: 16px;
+    position: relative;
+}
+
+.close-popup {
+    position: sticky;
+    float: right;
+    top: 0;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #edf2f4;
+    color: #082c3c;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.popup-title {
+    font-size: 27px;
+    color: #082c3c;
+    margin: 5px 40px 8px 0;
+}
+
+.popup-number {
+    color: #75848d;
+    margin-bottom: 20px;
+}
+
+.popup-container h3 {
+    margin: 22px 0 13px;
+    color: #123c50;
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.photo-gallery div {
+    background: #f0f5f6;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-gallery p {
+    padding: 10px;
+    font-weight: bold;
+}
+
+.popup-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.popup-specs p {
+    background: #f0f6f7;
+    padding: 13px;
+    border-radius: 8px;
+}
+
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f0f6f7;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.driver-photo {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    background: #e1e8eb;
+}
+
+.driver-info h4 {
+    font-size: 20px;
+    color: #082c3c;
+    margin-bottom: 8px;
+}
+
+.driver-info p {
+    color: #627680;
+    margin: 6px 0;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: #00a98f;
+    color: white;
+    font-size: 17px;
+}
+
+.register-btn:hover {
+    background: #087d70;
+}
+
+/* REGISTRATION PAGE */
+
+#registrationPage {
+    display: none;
+    max-width: 850px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+.registration-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.registration-container h2 {
+    color: #082c3c;
+    text-align: center;
     margin-bottom: 10px;
 }
 
-#selectedMessage p {
-    font-size: 14px;
-    overflow-wrap: anywhere;
+.registration-container .subtitle {
+    text-align: center;
+    color: #71818a;
+    margin-bottom: 25px;
 }
 
-/* =====================================
-   FOOTER
-===================================== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #183442;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5e0e4;
+    border-radius: 8px;
+    outline: none;
+    font-size: 15px;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #00a98f;
+}
+
+.form-group input[readonly] {
+    background: #edf3f5;
+    color: #526872;
+}
+
+.otp-row {
+    display: flex;
+    gap: 10px;
+}
+
+.otp-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.otp-btn {
+    padding: 12px 16px;
+    background: #082c3c;
+    color: white;
+    white-space: nowrap;
+}
+
+.otp-btn:hover {
+    background: #00a98f;
+}
+
+.otp-status {
+    font-size: 13px;
+    margin-top: 5px;
+    color: #087d70;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: #00a98f;
+    color: white;
+    font-size: 17px;
+}
+
+.submit-btn:hover {
+    background: #087d70;
+}
+
+.back-btn {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    background: #edf2f4;
+    color: #082c3c;
+    font-size: 15px;
+}
+
+.back-btn:hover {
+    background: #dce7eb;
+}
 
 footer {
-    width: 100%;
-    margin-top: auto;
-    padding: 22px 15px;
-
-    background: var(--dark);
-    color: white;
-
+    margin-top: 50px;
+    padding: 22px;
+    background: #082c3c;
     text-align: center;
-    font-size: 13px;
-    line-height: 1.7;
+    color: white;
 }
 
-/* =====================================
-   TABLETS
-===================================== */
+/* RESPONSIVE */
 
-@media (max-width: 900px) {
-
-    header {
-        padding: 15px 5%;
-    }
-
-    .container {
-        width: 94%;
-    }
-
-    .hero {
-        min-height: 230px;
-    }
-
+@media (max-width: 950px) {
     .car-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-    }
-
-    .car-image {
-        height: 200px;
-    }
-
-    .car-details {
-        padding: 17px;
-    }
-
-    .spec {
-        font-size: 11px;
-        padding: 10px 8px;
     }
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width: 600px) {
-
     header {
-        min-height: 65px;
-        padding: 13px 5%;
+        padding: 16px 5%;
     }
 
     .logo {
-        font-size: 24px;
-    }
-
-    header > div:last-child {
-        font-size: 12px;
-    }
-
-    .hero {
-        min-height: 210px;
-        padding: 40px 15px;
-    }
-
-    .hero h1 {
-        font-size: 26px;
-    }
-
-    .hero p {
-        font-size: 13px;
-    }
-
-    .container {
-        width: 92%;
-        margin: 25px auto;
-    }
-
-    .date-box {
-        padding: 20px 17px;
-        margin-bottom: 35px;
-    }
-
-    .date-box h2 {
-        font-size: 21px;
-    }
-
-    .date-inputs {
-        grid-template-columns: 1fr;
-        gap: 17px;
-    }
-
-    .continue-btn {
-        width: 100%;
-    }
-
-    .car-grid {
-        grid-template-columns: 1fr;
-        gap: 23px;
-    }
-
-    .car-image {
-        height: 240px;
-    }
-
-    .car-details {
-        padding: 20px;
-    }
-
-    .car-details h3 {
-        font-size: 21px;
-    }
-
-    .specs {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-    }
-
-    .spec {
-        font-size: 12px;
-        padding: 12px 10px;
-    }
-
-    #selectedMessage {
-        padding: 18px;
-    }
-
-    footer {
-        font-size: 12px;
-    }
-}
-
-/* =====================================
-   SMALL MOBILE
-===================================== */
-
-@media (max-width: 380px) {
-
-    .logo {
-        font-size: 21px;
-    }
-
-    .hero h1 {
         font-size: 23px;
     }
 
-    .car-image {
-        height: 200px;
+    .heading h1 {
+        font-size: 27px;
     }
 
-    .car-details {
+    .car-grid {
+        grid-template-columns: 1fr;
         padding: 15px;
     }
 
-    .spec {
-        font-size: 11px;
-        padding: 9px 7px;
+    .popup-container {
+        padding: 17px;
     }
-}
 
-/* =====================================
-   ACCESSIBILITY
-===================================== */
+    .popup-title {
+        font-size: 22px;
+    }
 
-button:focus-visible,
-input:focus-visible {
-    outline: 3px solid rgba(0, 185, 159, 0.35);
-    outline-offset: 3px;
-}
+    .photo-gallery {
+        gap: 8px;
+    }
 
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto;
-        animation: none;
-        transition: none;
+    .photo-gallery img {
+        height: 120px;
+    }
+
+    .popup-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .driver-info {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .driver-photo {
+        width: 75px;
+        height: 75px;
+    }
+
+    .driver-info h4 {
+        font-size: 17px;
+    }
+
+    .registration-container {
+        padding: 20px 15px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .otp-row {
+        flex-direction: column;
+    }
+
+    .otp-btn {
+        width: 100%;
     }
 }

@@ -5,389 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelGo | Bus Booking</title>
 
-<title>TravelGo | bus Booking</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f3f7f8;
-    color: #183442;
-}
-
-/* HEADER */
-header {
-    background: #082c3c;
-    padding: 18px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 27px;
-    font-weight: bold;
-    color: #00c2a8;
-}
-
-header a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* HEADING */
-.heading {
-    text-align: center;
-    padding: 45px 15px 25px;
-}
-
-.heading h1 {
-    font-size: 34px;
-    color: #082c3c;
-}
-
-.heading p {
-    margin-top: 10px;
-    color: #71818a;
-}
-
-/* bus GRID */
-.bus-grid {
-    max-width: 1250px;
-    margin: auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 25px;
-}
-
-.bus-busd {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,.08);
-    transition: .3s;
-}
-
-.bus-busd:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0,0,0,.13);
-}
-
-.bus-image {
-    width: 100%;
-    height: 220px;
-    background: #e9eff2;
-}
-
-.bus-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.image-placeholder {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #71818a;
-}
-
-.bus-details {
-    padding: 20px;
-}
-
-.bus-details h3 {
-    color: #082c3c;
-    font-size: 22px;
-    margin-bottom: 8px;
-}
-
-.bus-number {
-    color: #73828b;
-    margin-bottom: 18px;
-}
-
-.specs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.spec {
-    background: #f0f6f7;
-    padding: 11px;
-    border-radius: 8px;
-    font-size: 13px;
-}
-
-.select-btn {
-    width: 100%;
-    padding: 14px;
-    background: #082c3c;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.select-btn:hover {
-    background: #00a98f;
-}
-
-.empty-message {
-    grid-column: 1 / -1;
-    text-align: center;
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    color: #71818a;
-}
-
-/* POPUP */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0,0,0,.78);
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
-
-.popup-container {
-    background: white;
-    width: 850px;
-    max-width: 100%;
-    max-height: 92vh;
-    overflow-y: auto;
-    padding: 28px;
-    border-radius: 16px;
-    position: relative;
-    animation: popup .3s ease;
-}
-
-@keyframes popup {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.close-popup {
-    position: sticky;
-    float: right;
-    top: 0;
-    z-index: 2;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: #edf2f4;
-    color: #082c3c;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-.popup-title {
-    font-size: 27px;
-    color: #082c3c;
-    margin: 5px 40px 8px 0;
-}
-
-.popup-number {
-    color: #75848d;
-    margin-bottom: 20px;
-}
-
-.popup-container h3 {
-    margin: 22px 0 13px;
-    color: #123c50;
-}
-
-/* FOUR-SIDE GALLERY */
-.photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.photo-gallery div {
-    background: #f0f5f6;
-    text-align: center;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.photo-gallery img {
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-    display: block;
-}
-
-.photo-gallery p {
-    padding: 10px;
-    font-weight: bold;
-}
-
-.photo-placeholder {
-    height: 190px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #71818a;
-}
-
-/* SPECIFICATIONS */
-.popup-specs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.popup-specs p {
-    background: #f0f6f7;
-    padding: 13px;
-    border-radius: 8px;
-}
-
-/* DRIVER */
-.driver-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background: #f0f6f7;
-    padding: 18px;
-    border-radius: 12px;
-}
-
-.driver-photo {
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
-    background: #e1e8eb;
-}
-
-.driver-info h4 {
-    font-size: 20px;
-    color: #082c3c;
-    margin-bottom: 8px;
-}
-
-.driver-info p {
-    color: #627680;
-    margin: 6px 0;
-}
-
-/* REGISTER */
-.register-btn {
-    width: 100%;
-    padding: 15px;
-    margin-top: 25px;
-    background: #00a98f;
-    color: white;
-    border: none;
-    border-radius: 9px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.register-btn:hover {
-    background: #087d70;
-}
-
-/* FOOTER */
-footer {
-    margin-top: 50px;
-    padding: 22px;
-    background: #082c3c;
-    text-align: center;
-    color: white;
-}
-
-/* TABLET */
-@media (max-width: 950px) {
-    .bus-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    header {
-        padding: 16px 5%;
-    }
-
-    .logo {
-        font-size: 23px;
-    }
-
-    .heading h1 {
-        font-size: 27px;
-    }
-
-    .bus-grid {
-        grid-template-columns: 1fr;
-        padding: 15px;
-    }
-
-    .popup-container {
-        padding: 17px;
-    }
-
-    .popup-title {
-        font-size: 22px;
-    }
-
-    .photo-gallery {
-        gap: 8px;
-    }
-
-    .photo-gallery img,
-    .photo-placeholder {
-        height: 120px;
-    }
-
-    .popup-specs {
-        grid-template-columns: 1fr;
-    }
-
-    .driver-info {
-        gap: 12px;
-        padding: 12px;
-    }
-
-    .driver-photo {
-        width: 75px;
-        height: 75px;
-    }
-
-    .driver-info h4 {
-        font-size: 17px;
-    }
-}
-</style>
 </head>
 
 <body>
@@ -397,24 +17,26 @@ footer {
     <a href="/">Home</a>
 </header>
 
+<!-- BUS LIST PAGE -->
+
+<main id="busListPage">
+
 <section class="heading">
-    <h1>Choose Your Perfect bus</h1>
-    <p>Explore our available bus and enjoy your journey.</p>
+    <h1>Choose Your Perfect Bus</h1>
+    <p>Explore our available buses and enjoy your journey.</p>
 </section>
 
-<!-- bus LIST -->
 <div class="bus-grid">
 
 {% for bus in data %}
 
-<div class="bus-busd">
+<div class="bus-card">
 
     <div class="bus-image">
         {% if bus.front_photo %}
-            <img src="{{ bus.front_photo.url }}"
-                 alt="{{ bus.bus_company }}">
+            <img src="{{ bus.front_photo.url }}" alt="{{ bus.bus_company }}">
         {% else %}
-            <div class="image-placeholder">bus image not available</div>
+            <div class="image-placeholder">Bus image not available</div>
         {% endif %}
     </div>
 
@@ -431,7 +53,7 @@ footer {
             <div class="spec">❄️ {{ bus.couch_type }}</div>
             <div class="spec">🧳 {{ bus.luggage }} Luggage</div>
             <div class="spec">💺 {{ bus.seat_type }} Seats</div>
-            <div class="spec">💺Entertainment : {{ bus.Entertainment }} </div>
+            <div class="spec">📺 {{ bus.Entertainment }}</div>
         </div>
 
         <button
@@ -445,25 +67,24 @@ footer {
             data-ac="{{ bus.couch_type|default:'' }}"
             data-luggage="{{ bus.luggage|default:'' }}"
             data-seat="{{ bus.seat_type|default:'' }}"
-            data-Entertainment="{{ bus.Entertainment|default:'' }}"
+            data-entertainment="{{ bus.Entertainment|default:'' }}"
 
             data-front="{% if bus.front_photo %}{{ bus.front_photo.url }}{% endif %}"
             data-back="{% if bus.back_photo %}{{ bus.back_photo.url }}{% endif %}"
             data-left="{% if bus.left_photo %}{{ bus.left_photo.url }}{% endif %}"
             data-right="{% if bus.right_photo %}{{ bus.right_photo.url }}{% endif %}"
 
-            data-driver="{{ bus.primary_driver.name|default:'' }}"
-            data-experience="{{ bus.primary_driver.experience|default:'' }}"
-            data-phone="{{ bus.primary_driver.phone|default:'' }}"
+            data-primary-name="{{ bus.primary_driver.name|default:'' }}"
+            data-primary-experience="{{ bus.primary_driver.experience|default:'' }}"
+            data-primary-phone="{{ bus.primary_driver.phone|default:'' }}"
+            data-primary-photo="{% if bus.primary_driver and bus.primary_driver.photo %}{{ bus.primary_driver.photo.url }}{% endif %}"
 
-            data-driver="{{ bus.secondary_driver.name|default:'' }}"
-            data-experience="{{ secondary_driver.experience|default:'' }}"
-            data-phone="{{ bus.secondary_driver.phone|default:'' }}"
-
-            data-driver-photo="{% if bus.primary_driver.driveimg %}{{ bus.primary_driver.driveimg.url }}{% endif %}">
-            
-            
-            Book bus
+            data-secondary-name="{{ bus.secondary_driver.name|default:'' }}"
+            data-secondary-experience="{{ bus.secondary_driver.experience|default:'' }}"
+            data-secondary-phone="{{ bus.secondary_driver.phone|default:'' }}"
+            data-secondary-photo="{% if bus.secondary_driver and bus.secondary_driver.photo %}{{ bus.secondary_driver.photo.url }}{% endif %}"
+        >
+            Book Bus
         </button>
 
     </div>
@@ -471,119 +92,274 @@ footer {
 
 {% empty %}
 
-<p class="empty-message">
-    No active buss are currently available.
+<p style="grid-column:1/-1;text-align:center;padding:40px;background:white;">
+    No active buses are currently available.
 </p>
 
 {% endfor %}
 
 </div>
+</main>
 
-<!-- bus DETAILS POPUP -->
+<!-- BUS DETAILS POPUP -->
+
 <div class="popup-overlay" id="busPopup">
 
-    <div class="popup-container">
+<div class="popup-container">
 
-        <button class="close-popup"
-                type="button"
-                onclick="closebusPopup()">×</button>
+<button class="close-popup" type="button" onclick="closebusPopup()">×</button>
 
-        <h2 class="popup-title" id="popupCompany"></h2>
-        <p class="popup-number" id="popupNumber"></p>
+<h2 class="popup-title" id="popupCompany"></h2>
+<p id="popupNumber"></p>
 
-        <h3>bus Photos - Four Side View</h3>
+<h3>Bus Photos - Four Side View</h3>
 
-        <div class="photo-gallery">
-
-            <div>
-                <img id="frontImg" src="" alt="Front View">
-                <p>Front View</p>
-            </div>
-
-            <div>
-                <img id="backImg" src="" alt="Back View">
-                <p>Back View</p>
-            </div>
-
-            <div>
-                <img id="leftImg" src="" alt="Left View">
-                <p>Left View</p>
-            </div>
-
-            <div>
-                <img id="rightImg" src="" alt="Right View">
-                <p>Right View</p>
-            </div>
-
-        </div>
-
-        <h3>bus Specifications</h3>
-
-        <div class="popup-specs">
-            <p id="popupSeats"></p>
-            <p id="popupAC"></p>
-            <p id="popupLuggage"></p>
-            <p id="popupSeatType"></p>
-        </div>
-
-        <h3>Driver Information</h3>
-
-        <div class="driver-info">
-
-            <img id="driverPhoto"
-                 class="driver-photo"
-                 src="{% static 'images/default-driver.jpg' %}"
-                 alt="Driver Photo">
-
-            <div>
-                <h4 id="driverName"></h4>
-                <p id="driverExperience"></p>
-                <p id="driverPhone"></p>
-            </div>
-
-        </div>
-
-        <button type="button"
-                class="register-btn"
-                id="registerButton">
-            Register
-        </button>
-
-    </div>
+<div class="photo-gallery">
+    <div><img id="frontImg" alt="Front View"><p>Front View</p></div>
+    <div><img id="backImg" alt="Back View"><p>Back View</p></div>
+    <div><img id="leftImg" alt="Left View"><p>Left View</p></div>
+    <div><img id="rightImg" alt="Right View"><p>Right View</p></div>
 </div>
+
+<h3>Bus Specifications</h3>
+
+<div class="popup-specs">
+    <p id="popupSeats"></p>
+    <p id="popupAC"></p>
+    <p id="popupLuggage"></p>
+    <p id="popupSeatType"></p>
+    <p id="popupEntertainment"></p>
+</div>
+
+<h3>Driver Information</h3>
+
+<div class="driver-grid">
+
+    <div class="driver-info">
+        <div>
+            <span class="driver-label">Primary Driver</span>
+            <img id="primaryDriverPhoto" class="driver-photo"
+                 src="{% static 'images/default-driver.jpg' %}"
+                 alt="Primary Driver">
+        </div>
+
+        <div>
+            <h4 id="primaryDriverName">Not Available</h4>
+            <p id="primaryDriverExperience"></p>
+            <p id="primaryDriverPhone"></p>
+        </div>
+    </div>
+
+    <div class="driver-info">
+        <div>
+            <span class="driver-label">Secondary Driver</span>
+            <img id="secondaryDriverPhoto" class="driver-photo"
+                 src="{% static 'images/default-driver.jpg' %}"
+                 alt="Secondary Driver">
+        </div>
+
+        <div>
+            <h4 id="secondaryDriverName">Not Available</h4>
+            <p id="secondaryDriverExperience"></p>
+            <p id="secondaryDriverPhone"></p>
+        </div>
+    </div>
+
+</div>
+
+<button type="button" class="register-btn" onclick="openRegistration()">
+    Register
+</button>
+
+</div>
+</div>
+
+<!-- PASSENGER REGISTRATION PAGE -->
+
+<section id="registrationPage">
+
+<h1>Passenger Registration</h1>
+<p class="subtitle">Complete your details to confirm your bus booking.</p>
+
+<form method="POST" action="{% url 'bus_booking' %}" id="bookingForm">
+
+{% csrf_token %}
+
+<h3 class="section-title">Selected Bus Details</h3>
+
+<div class="form-grid">
+
+    <div class="form-group full">
+        <label>Bus Registration Number</label>
+        <input type="text" name="bus_number" id="selectedBusNumber"
+               readonly required>
+    </div>
+
+</div>
+
+<h3 class="section-title">Passenger Details</h3>
+
+<div class="form-grid">
+
+    <div class="form-group full">
+        <label>Full Name</label>
+        <input type="text" name="full_name" maxlength="100"
+               placeholder="Enter your full name" required>
+    </div>
+
+    <div class="form-group full">
+        <label>Mobile Number</label>
+
+        <div class="mobile-row">
+            <input type="tel" id="mobile" name="mobile"
+                   placeholder="10-digit mobile number"
+                   pattern="[6-9][0-9]{9}"
+                   maxlength="10" inputmode="numeric" required>
+
+            <button type="button" class="small-btn" id="sendOtpBtn"
+                    onclick="sendOTP()">Send OTP</button>
+        </div>
+
+        <div id="otpMessage" class="message"></div>
+    </div>
+
+    <div class="form-group full">
+        <label>Enter OTP</label>
+
+        <div class="otp-row">
+            <input type="text" id="otp" placeholder="Enter 6-digit OTP"
+                   maxlength="6" inputmode="numeric">
+
+            <button type="button" class="verify-btn" id="verifyBtn"
+                    onclick="verifyOTP()">Verify OTP</button>
+        </div>
+
+        <div id="verifyMessage" class="message"></div>
+    </div>
+
+    <div class="form-group full">
+        <label>Gmail Address</label>
+        <input type="email" name="email"
+               placeholder="example@gmail.com" maxlength="254" required>
+    </div>
+
+</div>
+
+<h3 class="section-title">Travel Dates</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Pickup Date</label>
+        <input type="date" name="pickup_date" id="pickupDate"
+               min="{{ today }}" required>
+    </div>
+
+    <div class="form-group">
+        <label>Drop Date</label>
+        <input type="date" name="drop_date" id="dropDate"
+               min="{{ today }}" required>
+    </div>
+
+</div>
+
+<h3 class="section-title">Pickup Location</h3>
+
+<div class="form-grid">
+
+    <div class="form-group full">
+        <label>Landmark</label>
+        <input type="text" name="pickup_landmark"
+               placeholder="Enter nearby landmark" maxlength="200" required>
+    </div>
+
+    <div class="form-group full">
+        <label>Village / City</label>
+        <input type="text" name="pickup_city"
+               placeholder="Enter village or city" maxlength="100" required>
+    </div>
+
+    <div class="form-group">
+        <label>PIN Code</label>
+        <input type="text" name="pickup_pincode"
+               pattern="[0-9]{6}" maxlength="6"
+               placeholder="6-digit PIN code" inputmode="numeric" required>
+    </div>
+
+    <div class="form-group">
+        <label>State</label>
+        <input type="text" name="pickup_state"
+               placeholder="Enter state" maxlength="100" required>
+    </div>
+
+</div>
+
+<button type="submit" class="submit-btn">
+    Confirm Bus Booking
+</button>
+
+<button type="button" class="back-btn" onclick="backToBuses()">
+    Back to Bus List
+</button>
+
+</form>
+</section>
+
+<!-- SUCCESS PAGE -->
+
+<section id="successPage">
+    <h1>✓ Booking Submitted!</h1>
+    <p>Your passenger details have been successfully saved.</p>
+    <p>Thank you for choosing TravelGo.</p>
+    <button class="submit-btn" onclick="backToBuses()">Back to Buses</button>
+</section>
 
 <footer>
     © 2026 TravelGo | Your Journey, Our Responsibility
 </footer>
 
 <script>
-const defaultDriverImage = "{% static 'images/default-driver.jpg' %}";
 
-function setImage(imageId, imageUrl, fallback = "") {
-    const img = document.getElementById(imageId);
+// CURRENT SELECTED BUS
+let selectedBus = {};
+let otpVerified = false;
+let otpRequestedMobile = "";
 
-    img.onerror = function () {
-        if (fallback && img.src !== fallback) {
-            img.src = fallback;
+// IMAGE HANDLING
+function setImage(id, url, fallback = false) {
+
+    const img = document.getElementById(id);
+
+    img.onerror = function() {
+        img.onerror = null;
+
+        if (fallback) {
+            img.src = "{% static 'images/default-driver.jpg' %}";
         } else {
             img.style.display = "none";
         }
     };
 
-    img.style.display = "block";
-    img.src = imageUrl || fallback;
-
-    if (!imageUrl && !fallback) {
+    if (url) {
+        img.src = url;
+        img.style.display = "block";
+    } else if (fallback) {
+        img.src = "{% static 'images/default-driver.jpg' %}";
+        img.style.display = "block";
+    } else {
+        img.removeAttribute("src");
         img.style.display = "none";
     }
 }
 
+// OPEN BUS POPUP
 function openbusPopup(button) {
 
     const d = button.dataset;
+    selectedBus = {...d};
 
     document.getElementById("popupCompany").textContent =
-        d.company || "bus Details";
+        d.company || "Bus Details";
 
     document.getElementById("popupNumber").textContent =
         "Registration: " + (d.number || "Not available");
@@ -605,49 +381,248 @@ function openbusPopup(button) {
     document.getElementById("popupSeatType").textContent =
         "💺 " + (d.seat || "N/A") + " Seats";
 
-    document.getElementById("driverName").textContent =
-        d.driver || "Driver details not available";
+    document.getElementById("popupEntertainment").textContent =
+        "📺 " + (d.entertainment || "N/A") + " Entertainment";
 
-    document.getElementById("driverExperience").textContent =
-        "Experience: " + (d.experience || "Not provided");
+    document.getElementById("primaryDriverName").textContent =
+        d.primaryName || "Not Available";
 
-    document.getElementById("driverPhone").textContent =
-        "Phone: " + (d.phone || "Not provided");
+    document.getElementById("primaryDriverExperience").textContent =
+        "Experience: " + (d.primaryExperience || "Not Provided");
 
-    setImage("driverPhoto", d.driverPhoto, defaultDriverImage);
+    document.getElementById("primaryDriverPhone").textContent =
+        "Phone: " + (d.primaryPhone || "Not Provided");
 
-    // Redirect to booking page with selected bus number
-    document.getElementById("registerButton").onclick = function () {
+    setImage("primaryDriverPhoto", d.primaryPhoto, true);
 
-        const bookingUrl = "#";
+    document.getElementById("secondaryDriverName").textContent =
+        d.secondaryName || "Not Available";
 
-        const params = new URLSearchParams({
-            bus_number: d.number || ""
-        });
+    document.getElementById("secondaryDriverExperience").textContent =
+        "Experience: " + (d.secondaryExperience || "Not Provided");
 
-        window.location.href = bookingUrl + "?" + params.toString();
-    };
+    document.getElementById("secondaryDriverPhone").textContent =
+        "Phone: " + (d.secondaryPhone || "Not Provided");
+
+    setImage("secondaryDriverPhoto", d.secondaryPhoto, true);
 
     document.getElementById("busPopup").style.display = "flex";
     document.body.style.overflow = "hidden";
 }
 
+// CLOSE POPUP
 function closebusPopup() {
     document.getElementById("busPopup").style.display = "none";
     document.body.style.overflow = "auto";
 }
 
+// OPEN REGISTRATION ON SAME PAGE
+function openRegistration() {
+
+    document.getElementById("selectedBusNumber").value =
+        selectedBus.number || "";
+
+    document.getElementById("busPopup").style.display = "none";
+    document.getElementById("busListPage").style.display = "none";
+    document.getElementById("registrationPage").style.display = "block";
+
+    document.body.style.overflow = "auto";
+    window.scrollTo(0, 0);
+}
+
+// BACK TO BUS LIST
+function backToBuses() {
+
+    document.getElementById("registrationPage").style.display = "none";
+    document.getElementById("successPage").style.display = "none";
+    document.getElementById("busListPage").style.display = "block";
+
+    window.scrollTo(0, 0);
+}
+
+// CSRF TOKEN
+function getCookie(name) {
+
+    let value = null;
+
+    document.cookie.split(";").forEach(cookie => {
+        cookie = cookie.trim();
+
+        if (cookie.startsWith(name + "=")) {
+            value = decodeURIComponent(
+                cookie.substring(name.length + 1)
+            );
+        }
+    });
+
+    return value;
+}
+
+// POST REQUEST
+async function postData(url, data) {
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+        body: new URLSearchParams(data)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Request failed.");
+    }
+
+    return result;
+}
+
+// SEND OTP
+async function sendOTP() {
+
+    const mobile = document.getElementById("mobile").value.trim();
+    const message = document.getElementById("otpMessage");
+    const button = document.getElementById("sendOtpBtn");
+
+    if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+        message.textContent = "Enter a valid 10-digit mobile number.";
+        message.className = "message error";
+        return;
+    }
+
+    button.disabled = true;
+    message.textContent = "Sending OTP...";
+
+    try {
+
+        const result = await postData(
+            "{% url 'send_bus_otp' %}",
+            {mobile: mobile}
+        );
+
+        otpRequestedMobile = mobile;
+        otpVerified = false;
+
+        message.textContent = result.message;
+        message.className = "message success";
+
+    } catch(error) {
+
+        message.textContent = error.message;
+        message.className = "message error";
+
+    } finally {
+        button.disabled = false;
+    }
+}
+
+// VERIFY OTP
+async function verifyOTP() {
+
+    const mobile = document.getElementById("mobile").value.trim();
+    const otp = document.getElementById("otp").value.trim();
+
+    const message = document.getElementById("verifyMessage");
+    const button = document.getElementById("verifyBtn");
+
+    if (mobile !== otpRequestedMobile) {
+        message.textContent = "Send a new OTP for this mobile number.";
+        message.className = "message error";
+        return;
+    }
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+        message.textContent = "Enter a valid 6-digit OTP.";
+        message.className = "message error";
+        return;
+    }
+
+    button.disabled = true;
+
+    try {
+
+        const result = await postData(
+            "{% url 'verify_bus_otp' %}",
+            {mobile: mobile, otp: otp}
+        );
+
+        otpVerified = true;
+
+        message.textContent = result.message;
+        message.className = "message success";
+
+    } catch(error) {
+
+        otpVerified = false;
+        message.textContent = error.message;
+        message.className = "message error";
+
+    } finally {
+        button.disabled = false;
+    }
+}
+
+// MOBILE CHANGE
+document.getElementById("mobile").addEventListener("input", function() {
+
+    otpVerified = false;
+    otpRequestedMobile = "";
+
+    document.getElementById("verifyMessage").textContent = "";
+    document.getElementById("otpMessage").textContent =
+        "Mobile changed. Send OTP again.";
+
+    document.getElementById("otpMessage").className = "message error";
+});
+
+// DATE VALIDATION
+const pickupInput = document.getElementById("pickupDate");
+const dropInput = document.getElementById("dropDate");
+
+pickupInput.addEventListener("change", function() {
+    dropInput.min = pickupInput.value;
+
+    if (dropInput.value && dropInput.value < pickupInput.value) {
+        dropInput.value = "";
+    }
+});
+
+// FORM SUBMISSION
+document.getElementById("bookingForm").addEventListener("submit", function(event) {
+
+    const mobile = document.getElementById("mobile").value.trim();
+
+    if (!otpVerified || mobile !== otpRequestedMobile) {
+        event.preventDefault();
+        alert("Please verify your mobile number.");
+        return;
+    }
+
+    if (!pickupInput.value || !dropInput.value ||
+        dropInput.value < pickupInput.value) {
+
+        event.preventDefault();
+        alert("Please select valid pickup and drop dates.");
+    }
+
+});
+
+// CLOSE POPUP OUTSIDE
 document.getElementById("busPopup").addEventListener("click", function(event) {
     if (event.target === this) {
         closebusPopup();
     }
 });
 
+// ESCAPE KEY
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
         closebusPopup();
     }
 });
+
 </script>
 
 </body>
