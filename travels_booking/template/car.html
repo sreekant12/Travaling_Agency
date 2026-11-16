@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css\car.css' %}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TravelGo | Car Booking</title>
 
@@ -180,7 +181,7 @@
         <p class="subtitle">Complete your details to book your car.</p>
 
         <form method="POST"
-              action="{% url 'car_booking' %}"
+              action="{% url 'Car_Booking' %}"
               id="bookingForm">
 
             {% csrf_token %}
@@ -205,12 +206,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Mobile Number</label>
+                    <label>whats_app Number</label>
                     <div class="otp-row">
                         <input type="tel"
-                               name="mobile"
-                               id="mobile"
-                               placeholder="10 digit mobile number"
+                               name="whats_app"
+                               id="whats_app"
+                               placeholder="10 digit whats_app number"
                                pattern="[6-9][0-9]{9}"
                                maxlength="10"
                                required>
@@ -387,7 +388,7 @@ function openCarPopup(button) {
         "Experience: " + (d.experience || "Not provided");
 
     document.getElementById("driverPhone").textContent =
-        "Phone: " + (d.phone || "Not provided");
+        "Phone: " + ("+91 XXXXX XXXXX" || "Not provided");
 
     setImage("driverPhoto", d.driverPhoto);
 
@@ -453,32 +454,32 @@ document.addEventListener("keydown", function(event) {
 
 let otpVerified = false;
 
-const mobileInput = document.getElementById("mobile");
+const whats_appInput = document.getElementById("whats_app");
 
-mobileInput.addEventListener("input", function () {
+whats_appInput.addEventListener("input", function () {
     otpVerified = false;
     document.getElementById("verifyStatus").textContent = "";
 });
 
 async function sendOTP() {
 
-    const mobile = mobileInput.value.trim();
+    const whats_app = whats_appInput.value.trim();
 
-    if (!/^[6-9][0-9]{9}$/.test(mobile)) {
-        alert("Enter a valid 10 digit mobile number.");
+    if (!/^[6-9][0-9]{9}$/.test(whats_app)) {
+        alert("Enter a valid 10 digit whats_app number.");
         return;
     }
 
     try {
 
-        const response = await fetch("{% url 'send_car_otp' %}", {
+        const response = await fetch("#", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "X-CSRFToken": getCSRFToken()
             },
             body: new URLSearchParams({
-                mobile: mobile
+                whats_app: whats_app
             })
         });
 
@@ -495,7 +496,7 @@ async function sendOTP() {
 
 async function verifyOTP() {
 
-    const mobile = mobileInput.value.trim();
+    const whats_app = whats_appInput.value.trim();
     const otp = document.getElementById("otp").value.trim();
 
     if (!/^[0-9]{6}$/.test(otp)) {
@@ -505,14 +506,14 @@ async function verifyOTP() {
 
     try {
 
-        const response = await fetch("{% url 'verify_car_otp' %}", {
+        const response = await fetch("#", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "X-CSRFToken": getCSRFToken()
             },
             body: new URLSearchParams({
-                mobile: mobile,
+                whats_app: whats_app,
                 otp: otp
             })
         });
@@ -524,7 +525,7 @@ async function verifyOTP() {
             otpVerified = true;
 
             document.getElementById("verifyStatus").textContent =
-                "Mobile number verified successfully.";
+                "whats_app number verified successfully.";
 
         } else {
 
@@ -572,7 +573,7 @@ document.getElementById("bookingForm").addEventListener("submit", function(event
 
         event.preventDefault();
 
-        alert("Please verify your mobile number before booking.");
+        alert("Please verify your whats_app number before booking.");
         return;
     }
 

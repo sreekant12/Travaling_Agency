@@ -345,12 +345,12 @@ header a {
     background: #edf4f5;
 }
 
-.mobile-row, .otp-row {
+.whats_app-row, .otp-row {
     display: flex;
     gap: 8px;
 }
 
-.mobile-row input, .otp-row input {
+.whats_app-row input, .otp-row input {
     min-width: 0;
 }
 
@@ -496,7 +496,7 @@ footer {
         grid-column: auto;
     }
 
-    .mobile-row, .otp-row {
+    .whats_app-row, .otp-row {
         flex-direction: column;
     }
 

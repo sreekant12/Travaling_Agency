@@ -5,385 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TravelGo | Minibus Booking</title>
+<title>TravelGo | minibus Booking</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f3f7f8;
-    color: #183442;
-}
-
-/* HEADER */
-header {
-    background: #082c3c;
-    padding: 18px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 27px;
-    font-weight: bold;
-    color: #00c2a8;
-}
-
-header a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* HEADING */
-.heading {
-    text-align: center;
-    padding: 45px 15px 25px;
-}
-
-.heading h1 {
-    font-size: 34px;
-    color: #082c3c;
-}
-
-.heading p {
-    margin-top: 10px;
-    color: #71818a;
-}
-
-/* MINIBUS GRID */
-.minibus-grid {
-    max-width: 1250px;
-    margin: auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 25px;
-}
-
-.minibus-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,.08);
-    transition: .3s;
-}
-
-.minibus-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0,0,0,.13);
-}
-
-.minibus-image {
-    width: 100%;
-    height: 220px;
-    background: #e9eff2;
-}
-
-.minibus-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.image-placeholder {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #71818a;
-}
-
-.minibus-details {
-    padding: 20px;
-}
-
-.minibus-details h3 {
-    color: #082c3c;
-    font-size: 22px;
-    margin-bottom: 8px;
-}
-
-.minibus-number {
-    color: #73828b;
-    margin-bottom: 18px;
-}
-
-.specs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.spec {
-    background: #f0f6f7;
-    padding: 11px;
-    border-radius: 8px;
-    font-size: 13px;
-}
-
-.select-btn {
-    width: 100%;
-    padding: 14px;
-    background: #082c3c;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.select-btn:hover {
-    background: #00a98f;
-}
-
-.empty-message {
-    grid-column: 1 / -1;
-    text-align: center;
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    color: #71818a;
-}
-
-/* POPUP */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0,0,0,.78);
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
-
-.popup-container {
-    background: white;
-    width: 850px;
-    max-width: 100%;
-    max-height: 92vh;
-    overflow-y: auto;
-    padding: 28px;
-    border-radius: 16px;
-    position: relative;
-    animation: popup .3s ease;
-}
-
-@keyframes popup {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.close-popup {
-    position: sticky;
-    float: right;
-    top: 0;
-    z-index: 2;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: #edf2f4;
-    color: #082c3c;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-.popup-title {
-    font-size: 27px;
-    color: #082c3c;
-    margin: 5px 40px 8px 0;
-}
-
-.popup-number {
-    color: #75848d;
-    margin-bottom: 20px;
-}
-
-.popup-container h3 {
-    margin: 22px 0 13px;
-    color: #123c50;
-}
-
-/* FOUR-SIDE GALLERY */
-.photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.photo-gallery div {
-    background: #f0f5f6;
-    text-align: center;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.photo-gallery img {
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-    display: block;
-}
-
-.photo-gallery p {
-    padding: 10px;
-    font-weight: bold;
-}
-
-/* SPECIFICATIONS */
-.popup-specs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.popup-specs p {
-    background: #f0f6f7;
-    padding: 13px;
-    border-radius: 8px;
-}
-
-/* DRIVER INFORMATION */
-.driver-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background: #f0f6f7;
-    padding: 18px;
-    border-radius: 12px;
-}
-
-.driver-photo {
-    width: 105px;
-    height: 105px;
-    min-width: 105px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
-    background: #e1e8eb;
-}
-
-.driver-info h4 {
-    font-size: 20px;
-    color: #082c3c;
-    margin-bottom: 8px;
-}
-
-.driver-info p {
-    color: #627680;
-    margin: 6px 0;
-}
-
-/* REGISTER */
-.register-btn {
-    width: 100%;
-    padding: 15px;
-    margin-top: 25px;
-    background: #00a98f;
-    color: white;
-    border: none;
-    border-radius: 9px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.register-btn:hover {
-    background: #087d70;
-}
-
-/* FOOTER */
-footer {
-    margin-top: 50px;
-    padding: 22px;
-    background: #082c3c;
-    text-align: center;
-    color: white;
-}
-
-/* TABLET */
-@media (max-width: 950px) {
-    .minibus-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    header {
-        padding: 16px 5%;
-    }
-
-    .logo {
-        font-size: 23px;
-    }
-
-    .heading {
-        padding: 30px 12px 20px;
-    }
-
-    .heading h1 {
-        font-size: 27px;
-    }
-
-    .minibus-grid {
-        grid-template-columns: 1fr;
-        padding: 15px;
-    }
-
-    .popup-container {
-        padding: 17px;
-    }
-
-    .popup-title {
-        font-size: 22px;
-    }
-
-    .photo-gallery {
-        gap: 8px;
-    }
-
-    .photo-gallery img {
-        height: 120px;
-    }
-
-    .popup-specs {
-        grid-template-columns: 1fr;
-    }
-
-    .driver-info {
-        gap: 12px;
-        padding: 12px;
-    }
-
-    .driver-photo {
-        width: 75px;
-        height: 75px;
-        min-width: 75px;
-    }
-
-    .driver-info h4 {
-        font-size: 17px;
-    }
-}
-</style>
 </head>
 
 <body>
@@ -393,85 +17,89 @@ footer {
     <a href="/">Home</a>
 </header>
 
-<section class="heading">
-    <h1>Choose Your Perfect Minibus</h1>
-    <p>Explore our available minibuses and enjoy your journey.</p>
-</section>
+<!-- minibus LIST PAGE -->
 
-<!-- MINIBUS LIST -->
-<div class="minibus-grid">
+<div id="minibusListPage">
 
-{% for minibus in data %}
+    <section class="heading">
+        <h1>Choose Your Perfect minibus</h1>
+        <p>Explore our available minibuss and enjoy your journey.</p>
+    </section>
 
-<div class="minibus-card">
+    <div class="minibus-grid">
 
-    <div class="minibus-image">
-        {% if minibus.front_photo %}
-            <img src="{{ minibus.front_photo.url }}"
-                 alt="{{ minibus.minibus_company }}">
-        {% else %}
-            <div class="image-placeholder">
-                Minibus image not available
+        {% for minibus in data %}
+
+        <div class="minibus-minibusd">
+
+            <div class="minibus-image">
+                {% if minibus.front_photo %}
+                    <img src="{{ minibus.front_photo.url }}"
+                         alt="{{ minibus.minibus_company }}">
+                {% else %}
+                    <div class="image-placeholder">
+                        minibus image not available
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
 
-    <div class="minibus-details">
+            <div class="minibus-details">
 
-        <h3>{{ minibus.minibus_company }}</h3>
+                <h3>{{ minibus.minibus_company }}</h3>
 
-        <p class="minibus-number">
-            Registration: {{ minibus.minibus_number }}
+                <p class="minibus-number">
+                    Registration: {{ minibus.minibus_number }}
+                </p>
+
+                <div class="specs">
+                    <div class="spec">👥 {{ minibus.seats }} Seats</div>
+                    <div class="spec">❄️ {{ minibus.couch_type }}</div>
+                    <div class="spec">🧳 {{ minibus.luggage }} Luggage</div>
+                    <div class="spec">💺 {{ minibus.seat_type }} Seats</div>
+                </div>
+
+                <button
+                    type="button"
+                    class="select-btn"
+                    onclick="openminibusPopup(this)"
+
+                    data-company="{{ minibus.minibus_company|default:'' }}"
+                    data-number="{{ minibus.minibus_number|default:'' }}"
+                    data-seats="{{ minibus.seats|default:'' }}"
+                    data-ac="{{ minibus.couch_type|default:'' }}"
+                    data-luggage="{{ minibus.luggage|default:'' }}"
+                    data-seat="{{ minibus.seat_type|default:'' }}"
+
+                    data-front="{% if minibus.front_photo %}{{ minibus.front_photo.url }}{% endif %}"
+                    data-back="{% if minibus.back_photo %}{{ minibus.back_photo.url }}{% endif %}"
+                    data-left="{% if minibus.left_photo %}{{ minibus.left_photo.url }}{% endif %}"
+                    data-right="{% if minibus.right_photo %}{{ minibus.right_photo.url }}{% endif %}"
+
+                    data-driver="{{ minibus.driver_name.name|default:'' }}"
+                    data-experience="{{ minibus.driver_name.experience|default:'' }}"
+                    data-phone="{{ minibus.driver_name.phone|default:'' }}"
+
+                    data-driver-photo="{% if minibus.driver_name and minibus.driver_name.photo %}{{ minibus.driver_name.photo.url }}{% endif %}">
+
+                    Book minibus
+                </button>
+
+            </div>
+        </div>
+
+        {% empty %}
+
+        <p class="empty-message">
+            No active minibuss are currently available.
         </p>
 
-        <div class="specs">
-            <div class="spec">👥 {{ minibus.seats }} Seats</div>
-            <div class="spec">❄️ {{ minibus.couch_type }}</div>
-            <div class="spec">🧳 {{ minibus.luggage }} Luggage</div>
-            <div class="spec">💺 {{ minibus.seat_type }} Seats</div>
-            <div class="spec">📺 {{ minibus.Entertainment }}</div>
-        </div>
-<button
-    type="button"
-    class="select-btn"
-    onclick="openminibusPopup(this)"
-
-    data-company="{{ minibus.minibus_company|default:'' }}"
-    data-number="{{ minibus.minibus_number|default:'' }}"
-    data-seats="{{ minibus.seats|default:'' }}"
-    data-ac="{{ minibus.couch_type|default:'' }}"
-    data-luggage="{{ minibus.luggage|default:'' }}"
-    data-seat="{{ minibus.seat_type|default:'' }}"
-    data-entertainment="{{ minibus.Entertainment|default:'' }}"
-
-    data-front="{% if minibus.front_photo %}{{ minibus.front_photo.url }}{% endif %}"
-    data-back="{% if minibus.back_photo %}{{ minibus.back_photo.url }}{% endif %}"
-    data-left="{% if minibus.left_photo %}{{ minibus.left_photo.url }}{% endif %}"
-    data-right="{% if minibus.right_photo %}{{ minibus.right_photo.url }}{% endif %}"
-
-    data-driver="{{ minibus.driver_name.name|default:'' }}"
-    data-experience="{{ minibus.driver_name.experience|default:'' }}"
-    data-phone="{{ minibus.driver_name.phone|default:'' }}"
-
-    data-driver-photo="{% if minibus.driver_name and minibus.driver_name.photo %}{{ minibus.driver_name.photo.url }}{% endif %}"
->
-    Book Minibus
-</button>
+        {% endfor %}
 
     </div>
 </div>
 
-{% empty %}
+<!-- minibus DETAILS POPUP -->
 
-<p class="empty-message">
-    No active minibuses are currently available.
-</p>
-
-{% endfor %}
-
-</div>
-
-<!-- MINIBUS DETAILS POPUP -->
 <div class="popup-overlay" id="minibusPopup">
 
     <div class="popup-container">
@@ -483,38 +111,37 @@ footer {
         <h2 class="popup-title" id="popupCompany"></h2>
         <p class="popup-number" id="popupNumber"></p>
 
-        <h3>Minibus Photos - Four Side View</h3>
+        <h3>minibus Photos - Four Side View</h3>
 
         <div class="photo-gallery">
             <div>
-                <img id="frontImg" src="" alt="Front View">
+                <img id="frontImg" alt="Front View">
                 <p>Front View</p>
             </div>
 
             <div>
-                <img id="backImg" src="" alt="Back View">
+                <img id="backImg" alt="Back View">
                 <p>Back View</p>
             </div>
 
             <div>
-                <img id="leftImg" src="" alt="Left View">
+                <img id="leftImg" alt="Left View">
                 <p>Left View</p>
             </div>
 
             <div>
-                <img id="rightImg" src="" alt="Right View">
+                <img id="rightImg" alt="Right View">
                 <p>Right View</p>
             </div>
         </div>
 
-        <h3>Minibus Specifications</h3>
+        <h3>minibus Specifications</h3>
 
         <div class="popup-specs">
             <p id="popupSeats"></p>
             <p id="popupAC"></p>
             <p id="popupLuggage"></p>
             <p id="popupSeatType"></p>
-            <p id="popupEntertainment"></p>
         </div>
 
         <h3>Driver Information</h3>
@@ -543,54 +170,204 @@ footer {
     </div>
 </div>
 
+<!-- PASSENGER REGISTRATION PAGE -->
+
+<section id="registrationPage">
+
+    <div class="registration-container">
+
+        <h2>Passenger Registration</h2>
+        <p class="subtitle">Complete your details to book your minibus.</p>
+
+        <form method="POST"
+              action="{% url 'MiniBus_Booking' %}"
+              id="bookingForm">
+
+            {% csrf_token %}
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+                    <label>Selected minibus Registration Number</label>
+                    <input type="text"
+                           name="minibus_number"
+                           id="selectedminibusNumber"
+                           readonly
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text"
+                           name="full_name"
+                           placeholder="Enter full name"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>whats_app Number</label>
+                    <div class="otp-row">
+                        <input type="tel"
+                               name="whats_app"
+                               id="whats_app"
+                               placeholder="10 digit whats_app number"
+                               pattern="[6-9][0-9]{9}"
+                               maxlength="10"
+                               required>
+
+                        <button type="button"
+                                class="otp-btn"
+                                onclick="sendOTP()">
+                            Send OTP
+                        </button>
+                    </div>
+                    <p class="otp-status" id="sendStatus"></p>
+                </div>
+
+                <div class="form-group full">
+                    <label>Enter OTP</label>
+
+                    <div class="otp-row">
+                        <input type="text"
+                               id="otp"
+                               placeholder="Enter received OTP"
+                               maxlength="6"
+                               inputmode="numeric">
+
+                        <button type="button"
+                                class="otp-btn"
+                                onclick="verifyOTP()">
+                            Verify OTP
+                        </button>
+                    </div>
+
+                    <p class="otp-status" id="verifyStatus"></p>
+                </div>
+
+                <div class="form-group full">
+                    <label>Gmail</label>
+                    <input type="email"
+                           name="email"
+                           placeholder="Enter Gmail address"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Pickup Date</label>
+                    <input type="date"
+                           name="pickup_date"
+                           id="pickupDate"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Drop Date</label>
+                    <input type="date"
+                           name="drop_date"
+                           id="dropDate"
+                           required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Pickup Landmark</label>
+                    <input type="text"
+                           name="pickup_landmark"
+                           placeholder="Enter nearby landmark"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Village / City</label>
+                    <input type="text"
+                           name="pickup_city"
+                           placeholder="Enter village or city"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Pincode</label>
+                    <input type="text"
+                           name="pickup_pincode"
+                           placeholder="Enter 6 digit pincode"
+                           pattern="[0-9]{6}"
+                           maxlength="6"
+                           required>
+                </div>
+
+                <div class="form-group full">
+                    <label>State</label>
+                    <input type="text"
+                           name="pickup_state"
+                           placeholder="Enter state"
+                           required>
+                </div>
+
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Submit Booking
+            </button>
+
+            <button type="button"
+                    class="back-btn"
+                    onclick="backTominibuss()">
+                Back to minibuss
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
 <footer>
     © 2026 TravelGo | Your Journey, Our Responsibility
 </footer>
 
 <script>
 
+/* IMAGE FUNCTION */
+
 function setImage(imageId, imageUrl) {
+
     const img = document.getElementById(imageId);
 
     if (!img) return;
 
+    img.style.display = "block";
+
     if (imageUrl) {
+
         img.onerror = function () {
-            console.error("Driver image failed to load:", imageUrl);
             img.style.display = "none";
         };
 
         img.src = imageUrl;
-        img.style.display = "block";
+
     } else {
+
         img.removeAttribute("src");
         img.style.display = "none";
-        console.error("Employee photo is empty.");
     }
 }
 
+/* OPEN minibus POPUP */
 
-// OPEN MINIBUS POPUP
 function openminibusPopup(button) {
 
     const d = button.dataset;
 
-    // Company Details
     document.getElementById("popupCompany").textContent =
-        d.company || "Minibus Details";
+        d.company || "minibus Details";
 
     document.getElementById("popupNumber").textContent =
         "Registration: " + (d.number || "Not available");
 
-
-    // Four-Side Vehicle Images
     setImage("frontImg", d.front);
     setImage("backImg", d.back);
     setImage("leftImg", d.left);
     setImage("rightImg", d.right);
 
-
-    // Minibus Specifications
     document.getElementById("popupSeats").textContent =
         "👥 " + (d.seats || "N/A") + " Seats";
 
@@ -603,11 +380,6 @@ function openminibusPopup(button) {
     document.getElementById("popupSeatType").textContent =
         "💺 " + (d.seat || "N/A") + " Seats";
 
-    document.getElementById("popupEntertainment").textContent =
-        "📺 " + (d.entertainment || "N/A") + " Entertainment";
-
-
-    // Driver Details
     document.getElementById("driverName").textContent =
         d.driver || "Driver details not available";
 
@@ -615,65 +387,204 @@ function openminibusPopup(button) {
         "Experience: " + (d.experience || "Not provided");
 
     document.getElementById("driverPhone").textContent =
-        "Phone: " + (d.phone || "Not provided");
+        "Phone: " + ('+91 XXXXX XXXXX' || "Not provided");
 
+    setImage("driverPhoto", d.driverPhoto);
 
-    // DRIVER PHOTO
-    console.log("Driver Photo URL:", d.driverPhoto);
+    /* REGISTER BUTTON */
 
-    setImage(
-        "driverPhoto",
-        d.driverPhoto,
-    );
-
-
-    // REGISTER BUTTON
     document.getElementById("registerButton").onclick = function () {
 
-        const bookingUrl = "#";
+        if (!d.number) {
+            alert("minibus registration number is not available.");
+            return;
+        }
 
-        const params = new URLSearchParams({
-            minibus_number: d.number || ""
-        });
+        document.getElementById("selectedminibusNumber").value =
+            d.number;
 
-        window.location.href =
-            bookingUrl + "?" + params.toString();
+        closeminibusPopup();
+
+        document.getElementById("minibusListPage").style.display = "none";
+
+        document.getElementById("registrationPage").style.display =
+            "block";
+
+        window.scrollTo(0, 0);
     };
 
-
-    // SHOW POPUP
     document.getElementById("minibusPopup").style.display = "flex";
-
     document.body.style.overflow = "hidden";
 }
 
+/* CLOSE POPUP */
 
-// CLOSE POPUP
 function closeminibusPopup() {
 
     document.getElementById("minibusPopup").style.display = "none";
-
     document.body.style.overflow = "auto";
 }
 
+/* BACK TO minibusS */
 
-// CLICK OUTSIDE TO CLOSE
-document.getElementById("minibusPopup").addEventListener(
-    "click",
-    function(event) {
+function backTominibuss() {
 
-        if (event.target === this) {
-            closeminibusPopup();
-        }
+    document.getElementById("registrationPage").style.display = "none";
+    document.getElementById("minibusListPage").style.display = "block";
+
+    window.scrollTo(0, 0);
+}
+
+document.getElementById("minibusPopup").addEventListener("click", function(event) {
+
+    if (event.target === this) {
+        closeminibusPopup();
     }
-);
+});
 
-
-// ESCAPE KEY TO CLOSE
 document.addEventListener("keydown", function(event) {
 
     if (event.key === "Escape") {
         closeminibusPopup();
+    }
+});
+
+/* OTP FUNCTIONS */
+
+let otpVerified = false;
+
+const whats_appInput = document.getElementById("whats_app");
+
+whats_appInput.addEventListener("input", function () {
+    otpVerified = false;
+    document.getElementById("verifyStatus").textContent = "";
+});
+
+async function sendOTP() {
+
+    const whats_app = whats_appInput.value.trim();
+
+    if (!/^[6-9][0-9]{9}$/.test(whats_app)) {
+        alert("Enter a valid 10 digit whats_app number.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch("{% url 'send_minibus_otp' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": getCSRFToken()
+            },
+            body: new URLSearchParams({
+                whats_app: whats_app
+            })
+        });
+
+        const result = await response.json();
+
+        document.getElementById("sendStatus").textContent =
+            result.message || result.error || "OTP request completed.";
+
+    } catch (error) {
+
+        alert("Unable to send OTP. Please try again.");
+    }
+}
+
+async function verifyOTP() {
+
+    const whats_app = whats_appInput.value.trim();
+    const otp = document.getElementById("otp").value.trim();
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+        alert("Enter the valid OTP.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch("{% url 'verify_minibus_otp' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": getCSRFToken()
+            },
+            body: new URLSearchParams({
+                whats_app: whats_app,
+                otp: otp
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            otpVerified = true;
+
+            document.getElementById("verifyStatus").textContent =
+                "whats_app number verified successfully.";
+
+        } else {
+
+            otpVerified = false;
+
+            document.getElementById("verifyStatus").textContent =
+                result.error || "OTP verification failed.";
+        }
+
+    } catch (error) {
+
+        alert("Unable to verify OTP. Please try again.");
+    }
+}
+
+/* CSRF TOKEN */
+
+function getCSRFToken() {
+
+    const csrfInput = document.querySelector(
+        'input[name="csrfmiddlewaretoken"]'
+    );
+
+    return csrfInput ? csrfInput.value : "";
+}
+
+/* DATE VALIDATION */
+
+const today = new Date().toISOString().split("T")[0];
+
+document.getElementById("pickupDate").min = today;
+document.getElementById("dropDate").min = today;
+
+document.getElementById("pickupDate").addEventListener("change", function () {
+
+    document.getElementById("dropDate").min = this.value;
+
+});
+
+/* FINAL FORM CHECK */
+
+document.getElementById("bookingForm").addEventListener("submit", function(event) {
+
+    if (!otpVerified) {
+
+        event.preventDefault();
+
+        alert("Please verify your whats_app number before booking.");
+        return;
+    }
+
+    const pickup = document.getElementById("pickupDate").value;
+    const drop = document.getElementById("dropDate").value;
+
+    if (drop < pickup) {
+
+        event.preventDefault();
+
+        alert("Drop date cannot be earlier than pickup date.");
+        return;
     }
 });
 

@@ -75,7 +75,7 @@ class travel_minibus(models.Model):
     is_activate=models.BooleanField(default=True)
 
 
-class Booking(models.Model):
+class Car_Booking(models.Model):
     booking_id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     Full_Name=models.CharField(max_length=45)
     Mobile_Number=models.CharField(max_length=10,unique=True)
@@ -86,6 +86,31 @@ class Booking(models.Model):
     PIN_Code=models.CharField()
     State=models.CharField()
     car=models.ForeignKey(Travel_car,on_delete=models.SET_NULL,blank=True,null=True)
-    minibus=models.ForeignKey(travel_minibus,on_delete=models.SET_NULL,blank=True,null=True)
-    bus=models.ForeignKey(Travel_bus,on_delete=models.SET_NULL,blank=True,null=True)
+
+
+
+class Bus_Booking(models.Model):
+    booking_id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
+    Full_Name=models.CharField(max_length=45)
+    Mobile_Number=models.CharField(max_length=10,unique=True)
+    Gmail_Address=models.CharField(max_length=50)
+    Pickup_Date=models.DateField()
+    Landmark=models.CharField()
+    Village_City=models.CharField() 
+    PIN_Code=models.CharField()
+    State=models.CharField()
+    car=models.ForeignKey(Travel_car,on_delete=models.SET_NULL,blank=True,null=True)
+
+
+class MiniBus_Booking(models.Model):
+    booking_id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
+    Full_Name=models.CharField(max_length=45)
+    Mobile_Number=models.CharField(max_length=10,unique=True)
+    Gmail_Address=models.CharField(max_length=50)
+    Pickup_Date=models.DateField()
+    Landmark=models.CharField()
+    Village_City=models.CharField() 
+    PIN_Code=models.CharField()
+    State=models.CharField()
+    car=models.ForeignKey(Travel_car,on_delete=models.SET_NULL,blank=True,null=True)
     

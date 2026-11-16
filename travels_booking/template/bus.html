@@ -181,7 +181,7 @@
 <h1>Passenger Registration</h1>
 <p class="subtitle">Complete your details to confirm your bus booking.</p>
 
-<form method="POST" action="{% url 'bus_booking' %}" id="bookingForm">
+<form method="POST" action="{% url 'Bus_Booking' %}" id="bookingForm">
 
 {% csrf_token %}
 
@@ -208,11 +208,11 @@
     </div>
 
     <div class="form-group full">
-        <label>Mobile Number</label>
+        <label>whats_app Number</label>
 
-        <div class="mobile-row">
-            <input type="tel" id="mobile" name="mobile"
-                   placeholder="10-digit mobile number"
+        <div class="whats_app-row">
+            <input type="tel" id="whats_app" name="whats_app"
+                   placeholder="10-digit whats_app number"
                    pattern="[6-9][0-9]{9}"
                    maxlength="10" inputmode="numeric" required>
 
@@ -323,7 +323,7 @@
 // CURRENT SELECTED BUS
 let selectedBus = {};
 let otpVerified = false;
-let otpRequestedMobile = "";
+let otpRequestedwhats_app = "";
 
 // IMAGE HANDLING
 function setImage(id, url, fallback = false) {
@@ -391,7 +391,7 @@ function openbusPopup(button) {
         "Experience: " + (d.primaryExperience || "Not Provided");
 
     document.getElementById("primaryDriverPhone").textContent =
-        "Phone: " + (d.primaryPhone || "Not Provided");
+        "Phone: " + ('+91 XXXXX XXXXX' || "Not Provided");
 
     setImage("primaryDriverPhoto", d.primaryPhoto, true);
 
@@ -402,7 +402,7 @@ function openbusPopup(button) {
         "Experience: " + (d.secondaryExperience || "Not Provided");
 
     document.getElementById("secondaryDriverPhone").textContent =
-        "Phone: " + (d.secondaryPhone || "Not Provided");
+        "Phone: " + ('+91 XXXXX XXXXX' || "Not Provided");
 
     setImage("secondaryDriverPhoto", d.secondaryPhoto, true);
 
@@ -482,12 +482,12 @@ async function postData(url, data) {
 // SEND OTP
 async function sendOTP() {
 
-    const mobile = document.getElementById("mobile").value.trim();
+    const whats_app = document.getElementById("whats_app").value.trim();
     const message = document.getElementById("otpMessage");
     const button = document.getElementById("sendOtpBtn");
 
-    if (!/^[6-9][0-9]{9}$/.test(mobile)) {
-        message.textContent = "Enter a valid 10-digit mobile number.";
+    if (!/^[6-9][0-9]{9}$/.test(whats_app)) {
+        message.textContent = "Enter a valid 10-digit whats_app number.";
         message.className = "message error";
         return;
     }
@@ -499,10 +499,10 @@ async function sendOTP() {
 
         const result = await postData(
             "{% url 'send_bus_otp' %}",
-            {mobile: mobile}
+            {whats_app: whats_app}
         );
 
-        otpRequestedMobile = mobile;
+        otpRequestedwhats_app = whats_app;
         otpVerified = false;
 
         message.textContent = result.message;
@@ -521,14 +521,14 @@ async function sendOTP() {
 // VERIFY OTP
 async function verifyOTP() {
 
-    const mobile = document.getElementById("mobile").value.trim();
+    const whats_app = document.getElementById("whats_app").value.trim();
     const otp = document.getElementById("otp").value.trim();
 
     const message = document.getElementById("verifyMessage");
     const button = document.getElementById("verifyBtn");
 
-    if (mobile !== otpRequestedMobile) {
-        message.textContent = "Send a new OTP for this mobile number.";
+    if (whats_app !== otpRequestedwhats_app) {
+        message.textContent = "Send a new OTP for this whats_app number.";
         message.className = "message error";
         return;
     }
@@ -545,7 +545,7 @@ async function verifyOTP() {
 
         const result = await postData(
             "{% url 'verify_bus_otp' %}",
-            {mobile: mobile, otp: otp}
+            {whats_app: whats_app, otp: otp}
         );
 
         otpVerified = true;
@@ -564,15 +564,15 @@ async function verifyOTP() {
     }
 }
 
-// MOBILE CHANGE
-document.getElementById("mobile").addEventListener("input", function() {
+// whats_app CHANGE
+document.getElementById("whats_app").addEventListener("input", function() {
 
     otpVerified = false;
-    otpRequestedMobile = "";
+    otpRequestedwhats_app = "";
 
     document.getElementById("verifyMessage").textContent = "";
     document.getElementById("otpMessage").textContent =
-        "Mobile changed. Send OTP again.";
+        "whats_app changed. Send OTP again.";
 
     document.getElementById("otpMessage").className = "message error";
 });
@@ -592,11 +592,11 @@ pickupInput.addEventListener("change", function() {
 // FORM SUBMISSION
 document.getElementById("bookingForm").addEventListener("submit", function(event) {
 
-    const mobile = document.getElementById("mobile").value.trim();
+    const whats_app = document.getElementById("whats_app").value.trim();
 
-    if (!otpVerified || mobile !== otpRequestedMobile) {
+    if (!otpVerified || whats_app !== otpRequestedwhats_app) {
         event.preventDefault();
-        alert("Please verify your mobile number.");
+        alert("Please verify your whats_app number.");
         return;
     }
 
