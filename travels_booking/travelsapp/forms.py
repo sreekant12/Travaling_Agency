@@ -1,7 +1,7 @@
 from django import forms
-from models import Car_Booking
-from models import Bus_Booking
-from models import MiniBus_Booking
+from . models import Car_Booking
+from . models import Bus_Booking
+from . models import MiniBus_Booking
 
 
 class Car_Booking_form(forms.ModelForm):

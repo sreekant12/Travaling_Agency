@@ -54,7 +54,7 @@ class Travel_car(models.Model):
     is_activate=models.BooleanField(default=True)
     
 
-class travel_minibus(models.Model):
+class Travel_Minibus(models.Model):
     Travels_id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     driver_name=models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True)
     minibus_number=models.CharField(max_length=15)

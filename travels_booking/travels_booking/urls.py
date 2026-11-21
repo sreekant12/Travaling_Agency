@@ -20,16 +20,21 @@ from travelsapp import views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("",views.home),
-    path('car/', views.car, name='car'),
-    path('minibus/', views.minibus, name='minibus'),
-    path('bus/', views.bus, name='bus'),
-    path('Car_Booking/',views.Car_Booking,name='Car_Booking'),
-    path('Bus_Booking/',views.Bus_Booking,name='Bus_Booking'),
-    path('MiniBus_Booking/',views.MiniBus_Booking,name='MiniBus_Booking'),
+    path("", views.home, name="home"),
+    path("admin/", admin.site.urls),
+    path("car/", views.car, name="car"),
+    path("bus/", views.bus, name="bus"),
+    path("minibus/", views.minibus, name="minibus"),
 
+    path("generate_otp/", views.generate_otp, name="generate_otp"),
 
+    path("verify_otp/", views.verify_otp, name="verify_otp"),
+
+    path("Car_Booking/", views.Car_Booking, name="Car_Booking"),
+
+    path("Bus_Booking/", views.Bus_Booking, name="Bus_Booking"),
+
+    path("MiniBus_Booking/", views.MiniBus_Booking, name="MiniBus_Booking"),
     
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
